@@ -7,6 +7,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,26 +19,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.statis.icons.HeroiconsBell
+import com.example.burungkurirapp.statis.icons.MaterialIconsChat
+import com.example.burungkurirapp.ui.constant.color.Emerald500
+import com.example.burungkurirapp.ui.constant.color.Slate950
+import com.example.burungkurirapp.ui.constant.color.Zinc100
+import com.example.burungkurirapp.ui.constant.color.Zinc200
+import com.example.burungkurirapp.ui.constant.color.Zinc400
+import com.example.burungkurirapp.ui.constant.color.Zinc600
+import com.example.burungkurirapp.ui.constant.color.Zinc950
 
 // ─── COLOR PALETTE (Zinc, Slate, Monochromatic Accent) ───
-private val Zinc100 = Color(0xFFF4F4F5)
-private val Zinc200 = Color(0xFFE4E4E7)
-private val Zinc400 = Color(0xFFA1A1AA)
-private val Zinc600 = Color(0xFF52525B)
-private val Zinc950 = Color(0xFF09090B)
-private val Slate950 = Color(0xFF020617)
-private val Emerald500 = Color(0xFF10B981)
 
-class NavHeader
 
+@Preview(showBackground = true)
 @Composable
-fun NavHeader.Element(
+fun NavHeaderPage(
     namaKurir: String = "Budi Pratama",
     idKurir: String = "KR-082",
     tipeKendaraan: String = "MOTOR",
+    Rating: Short = 5,
     isOnline: Boolean = true,
     onStatusToggle: () -> Unit = {},
     onNotificationClick: () -> Unit = {}
@@ -125,50 +130,37 @@ fun NavHeader.Element(
                 }
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(6.dp))
 
-            // ─── RIGHT: SHIFT MODE TOGGLE & NOTIFIKASI ORDER ───
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                // Badge Status Shift / Mode Bid
-                Box(
-                    modifier = Modifier
-                        .background(
-                            color = if (isOnline) Zinc950 else Zinc100,
-                            shape = RoundedCornerShape(2.dp)
-                        )
-                        .border(
-                            BorderStroke(1.dp, if (isOnline) Zinc950 else Zinc200),
-                            shape = RoundedCornerShape(2.dp)
-                        )
-                        .clickable { onStatusToggle() }
-                        .padding(horizontal = 8.dp, vertical = 5.dp)
+            Column() {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = if (isOnline) "SIAP BID" else "OFFLINE",
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 9.sp,
-                        color = if (isOnline) Color.White else Zinc600,
-                        letterSpacing = 0.5.sp
+                    Button(
+                        onClick = {},
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        modifier = Modifier.height(32.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            Slate950,
+                            Zinc100
+                        )
                     )
-                }
+                    {
+                        Text(
+                            text = "Aktifkan Bid",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
 
-                // Bell Alert Order Masuk
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .clickable { onNotificationClick() },
-                    contentAlignment = Alignment.Center
-                ) {
                     Icon(
-                        imageVector = HeroiconsBell,
-                        contentDescription = "Alert Order",
-                        tint = Zinc950,
-                        modifier = Modifier.size(15.dp)
+                        imageVector = MaterialIconsChat,
+                        contentDescription = "Chat",
+                        tint = Slate950,
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clickable {}
                     )
                 }
             }

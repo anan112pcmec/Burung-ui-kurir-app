@@ -20,12 +20,10 @@ fun KurirAppsRouting(
         // Melakukan looping pada list routes yang Anda berikan
         props.forEach { route ->
             composable(route.Path) {
-                // Menjalankan Composable sesuai dengan Path-nya
-                val componentServe: (components: List<@Composable (() -> Unit)>) -> @Composable () -> Unit =  { components -> {
-                    components.forEach { component -> component() }
-                }}
-
-                componentServe(route.Component)
+                // Langsung loop dan panggil setiap Composable di dalam route.Component
+                route.Component.forEach { component ->
+                    component()
+                }
             }
         }
     }
