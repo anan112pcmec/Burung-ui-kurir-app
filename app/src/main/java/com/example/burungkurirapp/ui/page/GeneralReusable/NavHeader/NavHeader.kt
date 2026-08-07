@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.statis.icons.HeroiconsBell
 import com.example.burungkurirapp.statis.icons.MaterialIconsChat
-import com.example.burungkurirapp.ui.constant.color.Emerald500
 import com.example.burungkurirapp.ui.constant.color.Slate950
+import com.example.burungkurirapp.ui.constant.color.Teal400
 import com.example.burungkurirapp.ui.constant.color.Zinc100
 import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc400
@@ -97,7 +97,7 @@ fun NavHeaderPage(
                         modifier = Modifier
                             .size(10.dp)
                             .clip(CircleShape)
-                            .background(if (isOnline) Emerald500 else Zinc400)
+                            .background(if (isOnline) Teal400 else Zinc400)
                             .border(BorderStroke(1.5.dp, Color.White), CircleShape)
                     )
                 }
