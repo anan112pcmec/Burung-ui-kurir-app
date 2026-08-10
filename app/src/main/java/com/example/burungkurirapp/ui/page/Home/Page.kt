@@ -477,7 +477,7 @@ fun Homepage(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "ORDER TERSEDIA (${incomingOrders.size})",
+                    text = "Daftar Pengiriman (${incomingOrders.size})",
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold,
                     fontSize = 10.sp,

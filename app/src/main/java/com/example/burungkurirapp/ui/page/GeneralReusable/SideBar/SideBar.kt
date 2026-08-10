@@ -35,7 +35,8 @@ import com.example.burungkurirapp.ui.constant.color.*
 data class SidebarNavItem(
     val id: String,
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val goTo: () ->Unit = {}
 )
 
 class SideBar
@@ -47,11 +48,14 @@ fun SideBar.Element(
     selectedItemId: String = "profile",
     namaKurir: String = "Budi Pratama",
     idKurir: String = "KR-082",
+    onProfilClick:()-> Unit = fun(){},
     onItemSelect: (String) -> Unit = {}
 ) {
     val navItems = remember {
         listOf(
-            SidebarNavItem("profile", "PROFIL SAYA", Icons.Default.Person),
+            SidebarNavItem("profile", "PROFIL SAYA", Icons.Default.Person, goTo = fun(){
+                onProfilClick();
+            }),
             SidebarNavItem("kendaraan", "KENDARAAN & DOKUMEN", Icons.Default.DirectionsBike),
             SidebarNavItem("rekening", "REKENING BANK", Icons.Default.AccountBalance),
             SidebarNavItem("data", "INFORMASI DATA", Icons.Default.Badge),
@@ -96,7 +100,10 @@ fun SideBar.Element(
                                 ),
                                 shape = RoundedCornerShape(2.dp)
                             )
-                            .clickable { onItemSelect(item.id) }
+                            .clickable {
+                                item.goTo()
+                                onItemSelect(item.id)
+                            }
                             .padding(horizontal = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start

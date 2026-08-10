@@ -43,8 +43,10 @@ fun NavHeaderPage(
     tipeKendaraan: String = "MOTOR",
     Rating: Short = 5,
     isOnline: Boolean = true,
+    OpenSideBar: () -> Unit ={},
     onStatusToggle: () -> Unit = {},
     onNotificationClick: () -> Unit = {}
+
 ) {
     Column(
         modifier = Modifier
@@ -71,7 +73,13 @@ fun NavHeaderPage(
             // ─── LEFT: AVATAR BULAT + IDENTITAS KURIR ───
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable {
+                        OpenSideBar();
+                    }
+                ,
+
             ) {
                 // Avatar Bulat + Indicator Dot Status
                 Box(contentAlignment = Alignment.BottomEnd) {
