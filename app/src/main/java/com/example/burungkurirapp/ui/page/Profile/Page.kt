@@ -31,6 +31,8 @@ import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.constant.color.Zinc950
 
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun ProfilePage() {

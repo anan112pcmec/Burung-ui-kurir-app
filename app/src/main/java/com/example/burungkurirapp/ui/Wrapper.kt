@@ -7,7 +7,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.burungkurirapp.ui.page.DokumenInformasi.DokumenInformasiPage
+import com.example.burungkurirapp.ui.page.DokumenKendaraan.DokumenKendaraanPage
 import com.example.burungkurirapp.ui.page.GeneralReusable.NavFooter.NavFooterPage
 import com.example.burungkurirapp.ui.page.GeneralReusable.NavHeader.NavHeaderPage
 import com.example.burungkurirapp.ui.page.GeneralReusable.SideBar.Element
@@ -28,12 +31,18 @@ val ApplicationRouting: List<RoutesProps> = listOf(
     RoutesProps("/Profil", listOf(
         {ProfilePage()},
     )),
+    RoutesProps("/DokumenKendaraan", listOf(
+        { DokumenKendaraanPage() }
+    )),
+    RoutesProps("/DokumenInformasi", listOf(
+        { DokumenInformasiPage() }
+    ))
 )
 
 @Composable
 fun BurungKurirAppWrapper() {
     var isSidebarOpen by remember { mutableStateOf(false) }
-    val navController = rememberNavController() // navController ada di sini
+    val navController: NavHostController = rememberNavController() // navController ada di sini
 
     // Box Utama sebagai wadah tumpukan (Stacking)
     Box(modifier = Modifier.fillMaxSize()) {
@@ -81,10 +90,7 @@ fun BurungKurirAppWrapper() {
             SideBarVaLues.Element(
                 widthFraction = 0.75f,
                 onItemSelect = { isSidebarOpen = false },
-                onProfilClick = fun(){
-                    isSidebarOpen= false
-                    navController.navigate("/Profil")
-                }
+               RoutingElement = navController
             )
         }
     }

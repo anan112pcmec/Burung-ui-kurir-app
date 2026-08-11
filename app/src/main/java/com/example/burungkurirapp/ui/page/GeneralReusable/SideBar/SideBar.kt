@@ -30,13 +30,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.burungkurirapp.ui.constant.color.*
 
 data class SidebarNavItem(
     val id: String,
     val title: String,
     val icon: ImageVector,
-    val goTo: () ->Unit = {}
+    val onclick: () ->Unit = {}
 )
 
 class SideBar
@@ -46,19 +48,17 @@ fun SideBar.Element(
     modifier: Modifier = Modifier,
     widthFraction: Float = 0.75f,
     selectedItemId: String = "profile",
+    RoutingElement: NavHostController =  rememberNavController(),
     namaKurir: String = "Budi Pratama",
     idKurir: String = "KR-082",
-    onProfilClick:()-> Unit = fun(){},
     onItemSelect: (String) -> Unit = {}
 ) {
     val navItems = remember {
         listOf(
-            SidebarNavItem("profile", "PROFIL SAYA", Icons.Default.Person, goTo = fun(){
-                onProfilClick();
-            }),
-            SidebarNavItem("kendaraan", "KENDARAAN & DOKUMEN", Icons.Default.DirectionsBike),
+            SidebarNavItem("profile", "PROFIL SAYA", Icons.Default.Person, onclick = fun(){RoutingElement.navigate("/Profil")}),
+            SidebarNavItem("kendaraan", "KENDARAAN & DOKUMEN", Icons.Default.DirectionsBike, onclick = fun(){RoutingElement.navigate("/DokumenKendaraan")}),
             SidebarNavItem("rekening", "REKENING BANK", Icons.Default.AccountBalance),
-            SidebarNavItem("data", "INFORMASI DATA", Icons.Default.Badge),
+            SidebarNavItem("data", "INFORMASI DATA", Icons.Default.Badge, onclick = fun(){RoutingElement.navigate("/DokumenInformasi")}),
             SidebarNavItem("pengaturan", "PENGATURAN", Icons.Default.Settings)
         )
     }
@@ -101,7 +101,7 @@ fun SideBar.Element(
                                 shape = RoundedCornerShape(2.dp)
                             )
                             .clickable {
-                                item.goTo()
+                                item.onclick()
                                 onItemSelect(item.id)
                             }
                             .padding(horizontal = 12.dp),
