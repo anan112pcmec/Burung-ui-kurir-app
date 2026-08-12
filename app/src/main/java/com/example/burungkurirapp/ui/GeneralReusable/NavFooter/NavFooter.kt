@@ -1,4 +1,4 @@
-package com.example.burungkurirapp.ui.page.GeneralReusable.NavFooter
+package com.example.burungkurirapp.ui.GeneralReusable.NavFooter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,19 +14,28 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.burungkurirapp.statis.icons.FluentuiSystemIconsHistory
 import com.example.burungkurirapp.statis.icons.FluentuiSystemIconsReceipt
 import com.example.burungkurirapp.statis.icons.FontAwesomeShippingFast
 import com.example.burungkurirapp.statis.icons.VscodeCodiconsHome
 import com.example.burungkurirapp.ui.constant.color.Slate950
 
-class NavFooter
+// 1. Bikin data class pengganti "Quadruple" biar rapi dan legal di Kotlin
+data class NavItem(
+    val icon: ImageVector,
+    val label: String,
+    val index: Int,
+    val onClick: () -> Unit
+)
 
 @Preview(showBackground = true)
 @Composable
 fun NavFooterPage(
     selectedIndex: Int = 0,
-    onTabSelected: (Int) -> Unit = {}
+    onTabSelected: (Int) -> Unit = {},
+    RoutingElement: NavHostController = rememberNavController()
 ) {
     Column {
         Row(
@@ -39,21 +48,54 @@ fun NavFooterPage(
                 .navigationBarsPadding(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
+            // 2. Masukin ke list pakai data class NavItem yang di atas
             val items = listOf(
-                Triple(VscodeCodiconsHome, "BERANDA", 0),
-                Triple(FluentuiSystemIconsReceipt, "TRANSAKSI", 1),
-                Triple(FontAwesomeShippingFast, "TUGAS", 2),
-                Triple(FluentuiSystemIconsHistory, "RIWAYAT", 3)
+                NavItem(
+                    icon = VscodeCodiconsHome,
+                    label = "BERANDA",
+                    index = 0,
+                    onClick = {
+                        RoutingElement.navigate("/")
+                    }
+                ),
+                NavItem(
+                    icon = FluentuiSystemIconsReceipt,
+                    label = "TRANSAKSI",
+                    index = 1,
+                    onClick = {
+                        // RoutingElement.navigate("path_transaksi")
+                    }
+                ),
+                NavItem(
+                    icon = FontAwesomeShippingFast,
+                    label = "TUGAS",
+                    index = 2,
+                    onClick = {
+                        // RoutingElement.navigate("path_tugas")
+                    }
+                ),
+                NavItem(
+                    icon = FluentuiSystemIconsHistory,
+                    label = "RIWAYAT",
+                    index = 3,
+                    onClick = {
+                        // RoutingElement.navigate("path_riwayat")
+                    }
+                )
             )
 
-            for ((icon, label, index) in items) {
+            // 3. Loop item-nya, destructuring udah otomatis cocok sama properti di data class
+            for ((icon, label, index, onClickAction) in items) {
                 val isSelected = selectedIndex == index
                 val color = if (isSelected) Slate950 else Color.Gray
 
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .clickable { onTabSelected(index) }
+                        .clickable {
+                            onTabSelected(index)
+                            onClickAction() // Jalankan fungsi navigasinya di sini
+                        }
                         .padding(horizontal = 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center

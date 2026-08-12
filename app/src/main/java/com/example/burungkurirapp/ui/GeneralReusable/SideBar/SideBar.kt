@@ -1,4 +1,4 @@
-package com.example.burungkurirapp.ui.page.GeneralReusable.SideBar
+package com.example.burungkurirapp.ui.GeneralReusable.SideBar
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -22,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
@@ -32,7 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.burungkurirapp.ui.ApplicationRouting
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.routes.RoutesProps
 
 data class SidebarNavItem(
     val id: String,
@@ -49,18 +49,13 @@ fun SideBar.Element(
     widthFraction: Float = 0.75f,
     selectedItemId: String = "profile",
     RoutingElement: NavHostController =  rememberNavController(),
-    namaKurir: String = "Budi Pratama",
-    idKurir: String = "KR-082",
+    RoutesList: List<RoutesProps>,
     onItemSelect: (String) -> Unit = {}
 ) {
-    val navItems = remember {
-        listOf(
-            SidebarNavItem("profile", "PROFIL SAYA", Icons.Default.Person, onclick = fun(){RoutingElement.navigate("/Profil")}),
-            SidebarNavItem("kendaraan", "KENDARAAN & DOKUMEN", Icons.Default.DirectionsBike, onclick = fun(){RoutingElement.navigate("/DokumenKendaraan")}),
-            SidebarNavItem("rekening", "REKENING BANK", Icons.Default.AccountBalance),
-            SidebarNavItem("data", "INFORMASI DATA", Icons.Default.Badge, onclick = fun(){RoutingElement.navigate("/DokumenInformasi")}),
-            SidebarNavItem("pengaturan", "PENGATURAN", Icons.Default.Settings)
-        )
+    val navItems: MutableList<SidebarNavItem> = mutableListOf()
+
+    RoutesList.forEach { it ->
+        navItems.add(SidebarNavItem(it.name.lowercase(), it.name.uppercase(), it.Icon, onclick = fun(){RoutingElement.navigate(it.Path)}))
     }
 
     Column(
@@ -191,5 +186,5 @@ fun SideBar.Element(
 @Preview(showBackground = true)
 @Composable
 fun SidebarPreview() {
-    SideBar().Element(widthFraction = 0.8f)
+    SideBar().Element(widthFraction = 0.8f, RoutesList = ApplicationRouting)
 }

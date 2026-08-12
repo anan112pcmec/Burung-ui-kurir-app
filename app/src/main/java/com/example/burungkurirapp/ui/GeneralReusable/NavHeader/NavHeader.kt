@@ -1,4 +1,4 @@
-package com.example.burungkurirapp.ui.page.GeneralReusable.NavHeader
+package com.example.burungkurirapp.ui.GeneralReusable.NavHeader
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

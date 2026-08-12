@@ -3,6 +3,15 @@ package com.example.burungkurirapp.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PhonelinkLock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -11,12 +20,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.burungkurirapp.ui.page.DokumenInformasi.DokumenInformasiPage
 import com.example.burungkurirapp.ui.page.DokumenKendaraan.DokumenKendaraanPage
-import com.example.burungkurirapp.ui.page.GeneralReusable.NavFooter.NavFooterPage
-import com.example.burungkurirapp.ui.page.GeneralReusable.NavHeader.NavHeaderPage
-import com.example.burungkurirapp.ui.page.GeneralReusable.SideBar.Element
-import com.example.burungkurirapp.ui.page.GeneralReusable.SideBar.SideBar
+import com.example.burungkurirapp.ui.GeneralReusable.NavFooter.NavFooterPage
+import com.example.burungkurirapp.ui.GeneralReusable.NavHeader.NavHeaderPage
+import com.example.burungkurirapp.ui.GeneralReusable.SideBar.Element
+import com.example.burungkurirapp.ui.GeneralReusable.SideBar.SideBar
+import com.example.burungkurirapp.ui.page.Alamat.AlamatPage
 import com.example.burungkurirapp.ui.page.Home.Homepage
+import com.example.burungkurirapp.ui.page.Privasi.PrivasiPage
 import com.example.burungkurirapp.ui.page.Profile.ProfilePage
+import com.example.burungkurirapp.ui.page.Rekening.RekeningPage
 import com.example.burungkurirapp.ui.routes.KurirAppsRouting
 import com.example.burungkurirapp.ui.routes.RoutesProps
 
@@ -24,19 +36,50 @@ import com.example.burungkurirapp.ui.routes.RoutesProps
 val SideBarVaLues: SideBar = SideBar()
 
 val DefaultRoutes: String = "/"
+
 val ApplicationRouting: List<RoutesProps> = listOf(
-    RoutesProps(DefaultRoutes, listOf(
-        {Homepage()},
-    )),
-    RoutesProps("/Profil", listOf(
-        {ProfilePage()},
-    )),
-    RoutesProps("/DokumenKendaraan", listOf(
-        { DokumenKendaraanPage() }
-    )),
-    RoutesProps("/DokumenInformasi", listOf(
-        { DokumenInformasiPage() }
-    ))
+    RoutesProps(
+        name = "Beranda",
+        Path = "/",
+        Icon = Icons.Default.Home,
+        Component = listOf({ Homepage(namaKurir = "Faiz") })
+    ),
+    RoutesProps(
+        name = "Profil",
+        Path = "/Profil",
+        Icon = Icons.Default.Person,
+        Component = listOf({ ProfilePage() })
+    ),
+    RoutesProps(
+        name = "Dokumen Kendaraan",
+        Path = "/DokumenKendaraan",
+        Icon = Icons.Default.DirectionsCar,
+        Component = listOf({ DokumenKendaraanPage() })
+    ),
+    RoutesProps(
+        name = "Dokumen Informasi",
+        Path = "/DokumenInformasi",
+        Icon = Icons.Default.Info,
+        Component = listOf({ DokumenInformasiPage() })
+    ),
+    RoutesProps(
+        name = "Alamat",
+        Path = "/Alamat",
+        Icon = Icons.Default.LocationOn,
+        Component = listOf({ AlamatPage() })
+    ),
+    RoutesProps(
+        name = "Privasi",
+        Path = "/Privasi",
+        Icon = Icons.Default.PhonelinkLock,
+        Component = listOf({ PrivasiPage() })
+    ),
+    RoutesProps(
+        name = "Rekening",
+        Path = "/Rekening",
+        Icon = Icons.Default.AccountBalanceWallet,
+        Component = listOf({ RekeningPage() })
+    )
 )
 
 @Composable
@@ -73,7 +116,7 @@ fun BurungKurirAppWrapper() {
             }
 
             // Footer (Tetap terkunci di bawah)
-            NavFooterPage { }
+            NavFooterPage(RoutingElement = navController)
         }
 
         // ─── 2. SIDEBAR OVERLAY ───
@@ -90,7 +133,8 @@ fun BurungKurirAppWrapper() {
             SideBarVaLues.Element(
                 widthFraction = 0.75f,
                 onItemSelect = { isSidebarOpen = false },
-               RoutingElement = navController
+                RoutingElement = navController,
+                RoutesList = ApplicationRouting
             )
         }
     }
@@ -100,6 +144,7 @@ fun BurungKurirAppWrapper() {
 @Composable
 fun BurungKurirAppWrapperPreview() {
     var isSidebarOpen by remember { mutableStateOf(false) }
+    val navController: NavHostController = rememberNavController() // navController ada di sini
 
     // Box Utama sebagai wadah tumpukan (Stacking)
     Box(modifier = Modifier.fillMaxSize()) {
@@ -126,7 +171,7 @@ fun BurungKurirAppWrapperPreview() {
             }
 
             // Footer (Tetap terkunci di bawah)
-            NavFooterPage { }
+            NavFooterPage(RoutingElement = navController)
         }
 
         // ─── 2. SIDEBAR OVERLAY ───
@@ -142,7 +187,8 @@ fun BurungKurirAppWrapperPreview() {
             // Elemen Sidebar Melayang di Atas
             SideBarVaLues.Element (
                 widthFraction = 0.75f,
-                onItemSelect = { isSidebarOpen = false }
+                onItemSelect = { isSidebarOpen = false },
+                RoutesList = ApplicationRouting
             )
         }
     }
