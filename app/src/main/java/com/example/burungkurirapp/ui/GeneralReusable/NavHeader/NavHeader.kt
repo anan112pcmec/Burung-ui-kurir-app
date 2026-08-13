@@ -7,6 +7,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -33,7 +35,7 @@ import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.constant.color.Zinc950
 
 // ─── COLOR PALETTE (Zinc, Slate, Monochromatic Accent) ───
-
+//Page ini diberkan nama HomePage tidak seragam dengan yang lain karna HomePage ini memicu bentrok
 
 @Preview(showBackground = true)
 @Composable
@@ -155,11 +157,7 @@ fun NavHeaderPage(
                         )
                     )
                     {
-                        Text(
-                            text = "Aktifkan Bid",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Medium
-                        )
+                       Icon(Icons.Default.Star, "Star")
                     }
 
                     Icon(
