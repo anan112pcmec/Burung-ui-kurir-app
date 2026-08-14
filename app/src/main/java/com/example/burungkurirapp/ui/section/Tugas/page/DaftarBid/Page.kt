@@ -46,10 +46,6 @@ data class OrderDelivery(
     val ongkir: String,
     val tipeItem: String
 )
-
-class Home
-
-
 @Composable
 private fun MetricItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {

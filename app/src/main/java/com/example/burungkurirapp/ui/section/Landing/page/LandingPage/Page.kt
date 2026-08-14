@@ -20,13 +20,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
+import com.example.burungkurirapp.ui.section.LocalUiFlowState
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LandingPagePage(
-    onRegisterClick: () -> Unit = {},
-    onLoginClick: () -> Unit = {}
+
 ) {
+    val state = LocalUiFlowState.current
     var isAgeAndKtpChecked by remember { mutableStateOf(false) }
     var isTermsChecked by remember { mutableStateOf(false) }
 
@@ -220,7 +222,7 @@ fun LandingPagePage(
                             if (canProceed) Slate950 else Zinc200,
                             RoundedCornerShape(6.dp)
                         )
-                        .clickable(enabled = canProceed) { onRegisterClick() },
+                        .clickable(enabled = canProceed) { state.navController.navigate("$AuthSectionPrefix/SignUp") },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -236,7 +238,7 @@ fun LandingPagePage(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onLoginClick() }
+                        .clickable { state.navController.navigate("$AuthSectionPrefix/Login")}
                         .padding(vertical = 6.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically

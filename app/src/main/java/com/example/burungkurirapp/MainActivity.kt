@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import com.example.burungkurirapp.ui.section.BurungKurirAppWrapper
 
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

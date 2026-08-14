@@ -1,4 +1,4 @@
-package com.example.burungkurirapp.ui.section.Landing.page.SignUp
+package com.example.burungkurirapp.ui.section.Auth.page.SignUp
 
 
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ data class RegisterKurirFormState(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun RegisterKurirPage(
+fun SignUpPage(
     onSubmitClick: (RegisterKurirFormState) -> Unit = {},
     onLoginRedirectClick: () -> Unit = {}
 ) {
@@ -306,7 +307,7 @@ private fun InputField(
         label = { Text(label, fontFamily = FontFamily.SansSerif, fontSize = 11.sp) },
         placeholder = { Text(placeholder, fontSize = 12.sp, color = Zinc400) },
         singleLine = true,
-        visualTransformation = if (isPassword) PasswordVisualTransformation() else androidx.compose.ui.text.input.VisualTransformation.None,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(
             keyboardType = if (isPassword) KeyboardType.Password else keyboardType,
             imeAction = ImeAction.Next

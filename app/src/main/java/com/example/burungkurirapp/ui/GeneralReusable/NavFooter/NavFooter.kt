@@ -21,6 +21,8 @@ import com.example.burungkurirapp.statis.icons.FluentuiSystemIconsReceipt
 import com.example.burungkurirapp.statis.icons.FontAwesomeShippingFast
 import com.example.burungkurirapp.statis.icons.VscodeCodiconsHome
 import com.example.burungkurirapp.ui.constant.color.Slate950
+import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.TugasSectionPrefix
 
 // 1. Bikin data class pengganti "Quadruple" biar rapi dan legal di Kotlin
 data class NavItem(
@@ -55,7 +57,7 @@ fun NavFooterPage(
                     label = "BERANDA",
                     index = 0,
                     onClick = {
-                        RoutingElement.navigate("/home")
+                        RoutingElement.navigate("$HomeSectionPrefix/Home")
                     }
                 ),
 
@@ -64,7 +66,7 @@ fun NavFooterPage(
                     label = "TUGAS",
                     index = 2,
                     onClick = {
-                        RoutingElement.navigate("/tugas")
+                        RoutingElement.navigate("$TugasSectionPrefix/Daftar-Bid")
                     }
                 ),
                 NavItem(
