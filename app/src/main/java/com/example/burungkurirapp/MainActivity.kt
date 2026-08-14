@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.burungkurirapp.ui.section.Home.page.BurungKurirAppWrapper
+import com.example.burungkurirapp.ui.section.BurungKurirAppWrapper
 
 
 

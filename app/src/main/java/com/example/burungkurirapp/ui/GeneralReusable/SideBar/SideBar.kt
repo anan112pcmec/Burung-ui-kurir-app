@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.burungkurirapp.ui.section.Home.page.ApplicationRouting
 import com.example.burungkurirapp.ui.constant.color.*
 import com.example.burungkurirapp.ui.routes.RoutesProps
+import com.example.burungkurirapp.ui.section.HomeSectionRouting
 
 data class SidebarNavItem(
     val id: String,
@@ -181,5 +181,5 @@ fun SideBar.Element(
 @Preview(showBackground = true)
 @Composable
 fun SidebarPreview() {
-    SideBar().Element(widthFraction = 0.8f, RoutesList = ApplicationRouting)
+    SideBar().Element(widthFraction = 0.8f, RoutesList = HomeSectionRouting)
 }

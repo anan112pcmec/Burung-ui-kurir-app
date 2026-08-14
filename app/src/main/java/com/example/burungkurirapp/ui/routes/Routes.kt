@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun KurirAppsRouting(
+fun Routing(
     navController: NavHostController = rememberNavController(),
     startDestination: String,
     props: List<RoutesProps>

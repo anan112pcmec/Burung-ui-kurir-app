@@ -55,23 +55,16 @@ fun NavFooterPage(
                     label = "BERANDA",
                     index = 0,
                     onClick = {
-                        RoutingElement.navigate("/")
+                        RoutingElement.navigate("/home")
                     }
                 ),
-                NavItem(
-                    icon = FluentuiSystemIconsReceipt,
-                    label = "TRANSAKSI",
-                    index = 1,
-                    onClick = {
-                        // RoutingElement.navigate("path_transaksi")
-                    }
-                ),
+
                 NavItem(
                     icon = FontAwesomeShippingFast,
                     label = "TUGAS",
                     index = 2,
                     onClick = {
-                        // RoutingElement.navigate("path_tugas")
+                        RoutingElement.navigate("/tugas")
                     }
                 ),
                 NavItem(
@@ -79,7 +72,7 @@ fun NavFooterPage(
                     label = "RIWAYAT",
                     index = 3,
                     onClick = {
-                        // RoutingElement.navigate("path_riwayat")
+                         RoutingElement.navigate("/riwayat")
                     }
                 )
             )
