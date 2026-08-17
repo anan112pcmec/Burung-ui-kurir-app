@@ -51,7 +51,6 @@ data class NavHeader( val namaKurir: String = "Budi Pratama",
                       val onStatusToggle: () -> Unit = {},
                       val onNotificationClick: () -> Unit = {} )
 
-@Preview(showBackground = true)
 @Composable
 fun NavHeader.HomePage(OpenSideBar: () -> Unit ={}) {
     Column(
@@ -161,7 +160,10 @@ fun NavHeader.HomePage(OpenSideBar: () -> Unit ={}) {
                         )
                     )
                     {
-                       Icon(Icons.Default.Star, "Star")
+                       Icon(
+                           imageVector =Icons.Default.Star,
+                           contentDescription = "Star",
+                       modifier  = Modifier.size(24.dp))
                     }
 
                     Icon(
@@ -178,7 +180,6 @@ fun NavHeader.HomePage(OpenSideBar: () -> Unit ={}) {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun NavHeader.LandingPage(
     onLoginClick: () -> Unit = {},
@@ -274,7 +275,6 @@ fun NavHeader.LandingPage(
 
 // ─── 2. HEADER AUTH PAGE (Login / Register) ───
 // Header bersih & minimalis dengan tombol kembali & indikator halaman
-@Preview(showBackground = true)
 @Composable
 fun NavHeader.AuthPage(
     title: String = "Masuk Akun",
@@ -349,9 +349,9 @@ fun NavHeader.AuthPage(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun NavHeader.TugasPage(
+
     isAutoBidActive: Boolean = false,
     sisaKuotaBid: Int = 15,
     onAutoBidToggle: (Boolean) -> Unit = {},
@@ -481,4 +481,11 @@ fun NavHeader.ReusableHeader(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewElement(){
+    val header: NavHeader = NavHeader()
+    header.HomePage(OpenSideBar = fun(){})
 }
