@@ -36,6 +36,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation("com.google.maps.android:maps-compose:4.3.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation(platform(libs.androidx.compose.bom))
     implementation("androidx.navigation:navigation-compose:2.9.8") // Sesuaikan versi terbaru
     implementation("androidx.compose.material:material-icons-extended")
