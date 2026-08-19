@@ -199,14 +199,14 @@ fun DokumenInformasiPage(){
                 ) {
                     Text(
                         text = "FOTO KTP (ASLI)",
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
                         fontSize = 9.sp,
                         color = Slate950
                     )
                     Text(
                         text = "/media_informasi_kurir_ktp_foto/",
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontSize = 7.sp,
                         color = Zinc400
                     )
@@ -278,7 +278,7 @@ fun DokumenInformasiPage(){
         ) {
             Text(
                 text = "SIMPAN INFORMASI KURIR",
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
                 fontSize = 11.sp,
                 color = Color.White,

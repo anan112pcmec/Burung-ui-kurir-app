@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -52,8 +53,8 @@ fun DokumenKendaraanPage() {
             .fillMaxSize()
             .background(Color.White)
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         // ─── 1. HEADER & STATUS PERIZINAN BADGE ───
         Row(
@@ -61,19 +62,19 @@ fun DokumenKendaraanPage() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
                     text = "DOKUMEN KENDARAAN",
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
+                    fontSize = 16.sp,
                     color = Slate950,
-                    letterSpacing = 1.sp
+                    letterSpacing = 0.5.sp
                 )
                 Text(
-                    text = "INFORMASI FISIK & LEGALITAS OPERASIONAL",
+                    text = "Informasi fisik & legalitas operasional",
                     fontFamily = FontFamily.SansSerif,
-                    fontSize = 8.sp,
+                    fontSize = 12.sp,
                     color = Zinc400
                 )
             }
@@ -81,22 +82,22 @@ fun DokumenKendaraanPage() {
             // Status Badge
             Box(
                 modifier = Modifier
+                    .clip(RoundedCornerShape(6.dp))
                     .background(
                         when (statusPerizinan) {
                             "Approved" -> Teal600
                             "Rejected" -> Color(0xFFE11D48)
                             else -> Teal100
-                        },
-                        RoundedCornerShape(2.dp)
+                        }
                     )
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                    .padding(horizontal = 10.dp, vertical = 6.dp)
             ) {
                 Text(
                     text = statusPerizinan.uppercase(),
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 8.sp,
-                    color = Color.White
+                    fontSize = 10.sp,
+                    color = if (statusPerizinan == "Pending") Teal600 else Color.White
                 )
             }
         }
@@ -104,28 +105,29 @@ fun DokumenKendaraanPage() {
         Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Zinc100))
 
         // ─── 2. SECTION 1: SPESIFIKASI UTAMA KENDARAAN ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
                 text = "01. DETAIL KENDARAAN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             // Selector Jenis Kendaraan (Motor / Mobil)
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 listOf("Motor", "Mobil").forEach { item ->
                     val isSelected = jenisKendaraan == item
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .height(38.dp)
-                            .background(if (isSelected) Slate950 else Zinc50, RoundedCornerShape(2.dp))
+                            .height(44.dp)
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(if (isSelected) Slate950 else Zinc50)
                             .border(BorderStroke(1.dp, if (isSelected) Slate950 else Zinc200), RoundedCornerShape(2.dp))
                             .clickable { jenisKendaraan = item },
                         contentAlignment = Alignment.Center
@@ -135,14 +137,14 @@ fun DokumenKendaraanPage() {
                                 imageVector = if (item == "Motor") Icons.Default.TwoWheeler else Icons.Default.DirectionsCar,
                                 contentDescription = null,
                                 tint = if (isSelected) Color.White else Zinc600,
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(16.dp)
                             )
-                            Spacer(modifier = Modifier.width(6.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = item.uppercase(),
+                                text = item,
                                 fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 10.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 12.sp,
                                 color = if (isSelected) Color.White else Zinc600
                             )
                         }
@@ -159,34 +161,35 @@ fun DokumenKendaraanPage() {
             )
 
             // Selector Roda Kendaraan
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = "KATEGORI RODA",
                     fontFamily = FontFamily.SansSerif,
-                    fontSize = 8.sp,
+                    fontSize = 11.sp,
                     color = Zinc400,
                     fontWeight = FontWeight.Bold
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     listOf("2 Roda", "3 Roda", "4 Roda").forEach { option ->
                         val isSelected = rodaKendaraan == option
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(32.dp)
-                                .background(if (isSelected) Slate950 else Color.White, RoundedCornerShape(2.dp))
+                                .height(38.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(if (isSelected) Slate950 else Color.White)
                                 .border(BorderStroke(1.dp, if (isSelected) Slate950 else Zinc200), RoundedCornerShape(2.dp))
                                 .clickable { rodaKendaraan = option },
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = option.uppercase(),
+                                text = option,
                                 fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 11.sp,
                                 color = if (isSelected) Color.White else Zinc600
                             )
                         }
@@ -196,14 +199,14 @@ fun DokumenKendaraanPage() {
         }
 
         // ─── 3. SECTION 2: LEGALITAS & NOMOR IDENTITAS ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
                 text = "02. MESIN & KEPEMILIKAN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             CustomInputField(
@@ -223,7 +226,7 @@ fun DokumenKendaraanPage() {
             // Toggle Boolean Checkbox STNK & BPKB
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 BooleanCheckboxCard(
                     modifier = Modifier.weight(1f),
@@ -241,14 +244,14 @@ fun DokumenKendaraanPage() {
         }
 
         // ─── 4. SECTION 3: UPLOAD FOTO & MEDIA ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
                 text = "03. LAMPIRAN FOTO DOKUMEN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             // Upload Box 1: Foto Kendaraan
@@ -276,25 +279,25 @@ fun DokumenKendaraanPage() {
             )
         }
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         // ─── 5. SUBMIT BUTTON ───
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(44.dp)
-                .background(Slate950, RoundedCornerShape(2.dp))
-                .clickable { /* Trigger Sync/Post to Backend */ }
-                .padding(vertical = 12.dp),
+                .height(48.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Slate950)
+                .clickable { /* Trigger Sync/Post to Backend */ },
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = "SIMPAN DOKUMEN KENDARAAN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 11.sp,
+                fontSize = 12.sp,
                 color = Color.White,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
         }
     }
@@ -309,21 +312,22 @@ private fun CustomInputField(
     onValueChange: (String) -> Unit,
     placeholder: String
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(
             text = label,
             fontFamily = FontFamily.SansSerif,
-            fontSize = 8.sp,
+            fontSize = 11.sp,
             color = Zinc400,
             fontWeight = FontWeight.Bold
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp)
-                .background(Zinc50, RoundedCornerShape(2.dp))
+                .height(44.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Zinc50)
                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             BasicTextField(
@@ -331,12 +335,17 @@ private fun CustomInputField(
                 onValueChange = onValueChange,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = androidx.compose.ui.text.TextStyle(
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 13.sp,
+                    color = Slate950
+                ),
                 decorationBox = { innerTextField ->
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
                             fontFamily = FontFamily.SansSerif,
-                            fontSize = 10.sp,
+                            fontSize = 13.sp,
                             color = Zinc400
                         )
                     }
@@ -356,11 +365,12 @@ private fun BooleanCheckboxCard(
 ) {
     Row(
         modifier = modifier
-            .height(38.dp)
-            .background(Color.White, RoundedCornerShape(2.dp))
+            .height(44.dp)
+            .clip(RoundedCornerShape(2.dp))
+            .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
             .clickable { onCheckedChange(!checked) }
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -368,7 +378,7 @@ private fun BooleanCheckboxCard(
             text = label,
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Bold,
-            fontSize = 9.sp,
+            fontSize = 11.sp,
             color = Slate950
         )
         Checkbox(
@@ -379,7 +389,7 @@ private fun BooleanCheckboxCard(
                 uncheckedColor = Zinc400,
                 checkmarkColor = Color.White
             ),
-            modifier = Modifier.size(16.dp)
+            modifier = Modifier.size(20.dp)
         )
     }
 }
@@ -394,10 +404,11 @@ private fun UploadMediaBox(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Zinc50, RoundedCornerShape(2.dp))
+            .clip(RoundedCornerShape(2.dp))
+            .background(Zinc50)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-            .padding(10.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -408,13 +419,13 @@ private fun UploadMediaBox(
                 text = title,
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Slate950
             )
             Text(
                 text = pathName,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 7.sp,
+                fontSize = 9.sp,
                 color = Zinc400
             )
         }
@@ -422,8 +433,9 @@ private fun UploadMediaBox(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp)
-                .background(if (isUploaded) Color.White else Zinc100, RoundedCornerShape(2.dp))
+                .height(72.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(if (isUploaded) Color.White else Zinc100)
                 .border(
                     BorderStroke(1.dp, if (isUploaded) Teal400 else Zinc200),
                     RoundedCornerShape(2.dp)
@@ -437,14 +449,14 @@ private fun UploadMediaBox(
                         imageVector = Icons.Default.Check,
                         contentDescription = null,
                         tint = Teal400,
-                        modifier = Modifier.size(14.dp)
+                        modifier = Modifier.size(16.dp)
                     )
-                    Spacer(modifier = Modifier.width(6.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "FILE TERUPLOAD • KLIK UNTUK UBAH",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 9.sp,
+                        fontSize = 11.sp,
                         color = Teal400
                     )
                 }
@@ -454,14 +466,14 @@ private fun UploadMediaBox(
                         imageVector = Icons.Default.AddAPhoto,
                         contentDescription = null,
                         tint = Zinc400,
-                        modifier = Modifier.size(14.dp)
+                        modifier = Modifier.size(16.dp)
                     )
-                    Spacer(modifier = Modifier.width(6.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "+ UNGGAH FOTO (JPG/PNG)",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 9.sp,
+                        fontSize = 11.sp,
                         color = Zinc400
                     )
                 }

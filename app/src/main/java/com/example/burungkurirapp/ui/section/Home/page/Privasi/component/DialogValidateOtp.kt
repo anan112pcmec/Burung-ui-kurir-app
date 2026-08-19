@@ -25,7 +25,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -37,7 +39,6 @@ import com.example.burungkurirapp.ui.constant.color.Zinc400
 import com.example.burungkurirapp.ui.constant.color.Zinc50
 import com.example.burungkurirapp.ui.constant.color.Zinc500
 import com.example.burungkurirapp.ui.constant.color.Zinc600
-
 
 // ─── DIALOG VALIDATE OTP (KOMPONEN 3) ───
 @Composable
@@ -57,52 +58,56 @@ fun DialogValidateOtp(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White, RoundedCornerShape(2.dp))
+                .clip(RoundedCornerShape(2.dp))
+                .background(Color.White)
                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Default.Key,
                     contentDescription = null,
                     tint = Slate950,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "VERIFIKASI OTP UBAH PASSWORD",
-                    fontFamily = FontFamily.Monospace,
+                    fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 11.sp,
+                    fontSize = 12.sp,
                     color = Slate950,
-                    letterSpacing = 1.sp
+                    letterSpacing = 0.5.sp
                 )
             }
 
             Text(
                 text = "Masukkan kode OTP yang telah dikirimkan ke nomor WhatsApp / email terdaftar Anda.",
-                fontSize = 10.sp,
+                fontFamily = FontFamily.SansSerif,
+                fontSize = 12.sp,
                 color = Zinc500,
-                lineHeight = 14.sp
+                lineHeight = 16.sp
             )
 
             // OTP Input Field
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = "KODE OTP (OTP KEY)",
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 8.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 11.sp,
                     color = Zinc400,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.5.sp
                 )
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(38.dp)
-                        .background(Zinc50, RoundedCornerShape(2.dp))
+                        .height(44.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Zinc50)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .padding(horizontal = 10.dp),
+                        .padding(horizontal = 12.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
                     BasicTextField(
@@ -111,12 +116,17 @@ fun DialogValidateOtp(
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.fillMaxWidth(),
+                        textStyle = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 13.sp,
+                            color = Slate950
+                        ),
                         decorationBox = { innerTextField ->
                             if (otpKey.isEmpty()) {
                                 Text(
                                     text = "Contoh: 893021",
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontSize = 13.sp,
                                     color = Zinc400
                                 )
                             }
@@ -128,40 +138,44 @@ fun DialogValidateOtp(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .height(36.dp)
-                        .background(Color.White, RoundedCornerShape(2.dp))
+                        .height(44.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color.White)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
                         .clickable { onDismiss() },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "BATAL",
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 9.sp,
-                        color = Zinc600
+                        fontSize = 11.sp,
+                        color = Zinc600,
+                        letterSpacing = 0.5.sp
                     )
                 }
 
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .height(36.dp)
-                        .background(Slate950, RoundedCornerShape(2.dp))
+                        .height(44.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Slate950)
                         .clickable { onValidateSubmit() },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "KONFIRMASI UBAH",
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 9.sp,
-                        color = Color.White
+                        fontSize = 11.sp,
+                        color = Color.White,
+                        letterSpacing = 0.5.sp
                     )
                 }
             }

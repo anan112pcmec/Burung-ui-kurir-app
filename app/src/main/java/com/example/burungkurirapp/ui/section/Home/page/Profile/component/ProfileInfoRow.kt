@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -24,7 +25,6 @@ import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.color.Teal500
 import com.example.burungkurirapp.ui.constant.color.Zinc300
 import com.example.burungkurirapp.ui.constant.color.Zinc400
-
 
 @Composable
 fun ProfileInfoRow(
@@ -43,20 +43,23 @@ fun ProfileInfoRow(
             text = label,
             fontFamily = FontFamily.SansSerif,
             color = Zinc400,
-            fontSize = 9.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
         )
 
         if (isBadge) {
             Box(
-                modifier = Modifier.background(Teal500, RoundedCornerShape(2.dp))
-                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                modifier = Modifier
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Teal500)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(
                     text = value,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 8.sp,
+                    fontSize = 10.sp,
                     color = Color.White
                 )
             }
@@ -68,12 +71,13 @@ fun ProfileInfoRow(
                     fontFamily = FontFamily.SansSerif,
                     color = Slate950,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 10.sp
+                    fontSize = 12.sp
                 ),
                 modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Color.White)
                     .border(BorderStroke(1.dp, Zinc300), RoundedCornerShape(2.dp))
-                    .padding(horizontal = 6.dp, vertical = 4.dp)
+                    .padding(horizontal = 8.dp, vertical = 6.dp)
             )
         } else {
             Text(
@@ -81,7 +85,7 @@ fun ProfileInfoRow(
                 fontFamily = FontFamily.SansSerif,
                 color = Slate950,
                 fontWeight = FontWeight.Bold,
-                fontSize = 10.sp
+                fontSize = 12.sp
             )
         }
     }

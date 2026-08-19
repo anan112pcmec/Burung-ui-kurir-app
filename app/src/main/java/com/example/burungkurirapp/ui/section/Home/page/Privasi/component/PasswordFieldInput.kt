@@ -23,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -30,10 +32,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc400
 import com.example.burungkurirapp.ui.constant.color.Zinc50
-
 
 // ─── HELPER INPUT COMPONENT ───
 @Composable
@@ -45,21 +47,23 @@ fun PasswordFieldInput(
     onToggleVisibility: () -> Unit,
     placeholder: String
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(
             text = label,
-            fontFamily = FontFamily.Monospace,
-            fontSize = 8.sp,
+            fontFamily = FontFamily.SansSerif,
+            fontSize = 11.sp,
             color = Zinc400,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp)
-                .background(Zinc50, RoundedCornerShape(2.dp))
+                .height(44.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Zinc50)
                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             Row(
@@ -75,12 +79,17 @@ fun PasswordFieldInput(
                         visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         modifier = Modifier.fillMaxWidth(),
+                        textStyle = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 13.sp,
+                            color = Slate950
+                        ),
                         decorationBox = { innerTextField ->
                             if (value.isEmpty()) {
                                 Text(
                                     text = placeholder,
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontSize = 13.sp,
                                     color = Zinc400
                                 )
                             }
@@ -94,7 +103,7 @@ fun PasswordFieldInput(
                     contentDescription = "Toggle Visibility",
                     tint = Zinc400,
                     modifier = Modifier
-                        .size(16.dp)
+                        .size(18.dp)
                         .clickable { onToggleVisibility() }
                 )
             }

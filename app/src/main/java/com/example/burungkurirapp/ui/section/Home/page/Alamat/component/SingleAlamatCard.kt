@@ -1,16 +1,12 @@
 package com.example.burungkurirapp.ui.section.Home.page.Alamat.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,7 +16,9 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.HomeWork
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,6 +37,7 @@ import com.example.burungkurirapp.ui.constant.color.Zinc500
 import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.section.Home.page.Alamat.AlamatKurirItem
 
+private val Rose600 = Color(0xFFE11D48)
 
 // ─── KOMPONEN 2: CARD ALAMAT SINGLE ───
 @Composable
@@ -47,132 +46,151 @@ fun SingleAlamatCard(
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White, RoundedCornerShape(2.dp))
-            .border(BorderStroke(1.dp, Slate950), RoundedCornerShape(2.dp))
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+    Surface(
+        shape = RoundedCornerShape(8.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Zinc200),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .background(Slate950, RoundedCornerShape(2.dp)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.HomeWork,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(16.dp)
-                    )
+            // Header: Icon, Label Alamat, Telepon & Tombol Aksi
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = Slate950,
+                        modifier = Modifier.size(36.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = Icons.Default.HomeWork,
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(
+                            text = item.panggilanAlamat.uppercase(),
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 13.sp,
+                            color = Slate950
+                        )
+                        Text(
+                            text = "TELP: ${item.nomorTelephone}",
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 11.sp,
+                            color = Zinc500
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.width(10.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    // Tombol Edit
+                    Surface(
+                        onClick = onEdit,
+                        shape = RoundedCornerShape(6.dp),
+                        color = Zinc50,
+                        border = BorderStroke(1.dp, Zinc200)
+                    ) {
+                        Box(
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Edit",
+                                tint = Slate950,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
 
-                Column {
-                    Text(
-                        text = item.panggilanAlamat.uppercase(),
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        color = Slate950
-                    )
-                    Text(
-                        text = "TELP: ${item.nomorTelephone}",
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 8.sp,
-                        color = Zinc500
-                    )
+                    // Tombol Hapus
+                    Surface(
+                        onClick = onDelete,
+                        shape = RoundedCornerShape(6.dp),
+                        color = Zinc50,
+                        border = BorderStroke(1.dp, Zinc200)
+                    ) {
+                        Box(
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Hapus",
+                                tint = Rose600,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
                 }
             }
 
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Box(
-                    modifier = Modifier
-                        .background(Zinc50, RoundedCornerShape(2.dp))
-                        .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .clickable { onEdit() }
-                        .padding(horizontal = 8.dp, vertical = 6.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = "Edit",
-                        tint = Slate950,
-                        modifier = Modifier.size(13.dp)
-                    )
-                }
+            HorizontalDivider(color = Zinc100, thickness = 1.dp)
 
-                Box(
-                    modifier = Modifier
-                        .background(Zinc50, RoundedCornerShape(2.dp))
-                        .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .clickable { onDelete() }
-                        .padding(horizontal = 8.dp, vertical = 6.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Hapus",
-                        tint = Color(0xFFE11D48),
-                        modifier = Modifier.size(13.dp)
-                    )
-                }
-            }
-        }
-
-        Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Zinc100))
-
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = item.namaAlamat,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                color = Slate950
-            )
-            Text(
-                text = "${item.kota}, ${item.provinsi} • ${item.kodePos} (${item.kodeNegara})",
-                fontFamily = FontFamily.Monospace,
-                fontSize = 9.sp,
-                color = Zinc600
-            )
-            if (item.deskripsi.isNotBlank()) {
+            // Informasi Detail Alamat
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    text = "PATOKAN: ${item.deskripsi}",
-                    fontSize = 10.sp,
-                    color = Zinc500,
-                    lineHeight = 14.sp
+                    text = item.namaAlamat,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Slate950
                 )
+                Text(
+                    text = "${item.kota}, ${item.provinsi} • ${item.kodePos} (${item.kodeNegara})",
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 11.sp,
+                    color = Zinc600
+                )
+                if (item.deskripsi.isNotBlank()) {
+                    Text(
+                        text = "PATOKAN: ${item.deskripsi}",
+                        fontSize = 11.sp,
+                        color = Zinc500,
+                        lineHeight = 15.sp
+                    )
+                }
             }
-        }
 
-        // Tag Koordinat GPS (Lat / Long)
-        Row(
-            modifier = Modifier
-                .background(Zinc50, RoundedCornerShape(2.dp))
-                .border(BorderStroke(0.5.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(horizontal = 6.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.LocationOn,
-                contentDescription = null,
-                tint = Teal600,
-                modifier = Modifier.size(12.dp)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = "GPS: ${item.latitude}, ${item.longitude}",
-                fontFamily = FontFamily.Monospace,
-                fontSize = 8.sp,
-                color = Zinc600
-            )
+            // Tag GPS
+            Surface(
+                shape = RoundedCornerShape(4.dp),
+                color = Zinc50,
+                border = BorderStroke(1.dp, Zinc200)
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = null,
+                        tint = Teal600,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "GPS: ${item.latitude}, ${item.longitude}",
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 10.sp,
+                        color = Zinc600
+                    )
+                }
+            }
         }
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.Slate950
-import com.example.burungkurirapp.ui.constant.color.Teal500
 import com.example.burungkurirapp.ui.constant.color.Zinc100
 import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc300
@@ -30,7 +29,6 @@ import com.example.burungkurirapp.ui.constant.color.Zinc500
 import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.constant.color.Zinc950
 import com.example.burungkurirapp.ui.section.Home.page.Profile.component.ProfileInfoRow
-
 
 @Preview(showBackground = true)
 @Composable
@@ -48,8 +46,8 @@ fun ProfilePage() {
             .fillMaxSize()
             .background(Color.White)
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         // ─── 1. HEADER PROFIL (AVATAR, IDENTITAS & EDIT BUTTON) ───
         Row(
@@ -64,7 +62,7 @@ fun ProfilePage() {
                 // Avatar Frame Bulat dengan Border Thin Zinc200
                 Box(
                     modifier = Modifier
-                        .size(52.dp)
+                        .size(56.dp)
                         .clip(CircleShape)
                         .background(Zinc950)
                         .border(BorderStroke(1.dp, Zinc200), CircleShape),
@@ -74,15 +72,15 @@ fun ProfilePage() {
                         text = "FH",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
+                        fontSize = 18.sp,
                         color = Color.White
                     )
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(14.dp))
 
                 // Nama & Subtitle Detail
-                Column(modifier = Modifier.weight(1f)) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     if (isEdit) {
                         BasicTextField(
                             value = name,
@@ -91,14 +89,15 @@ fun ProfilePage() {
                                 color = Slate950,
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 13.sp,
+                                fontSize = 14.sp,
                                 letterSpacing = 0.5.sp
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Zinc50, RoundedCornerShape(2.dp))
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(Zinc50)
                                 .border(BorderStroke(1.dp, Zinc300), RoundedCornerShape(2.dp))
-                                .padding(4.dp)
+                                .padding(8.dp)
                         )
                     } else {
                         Text(
@@ -106,60 +105,61 @@ fun ProfilePage() {
                             color = Slate950,
                             fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
+                            fontSize = 14.sp,
                             letterSpacing = 0.5.sp
                         )
                     }
-
-                    Spacer(modifier = Modifier.height(2.dp))
 
                     Text(
                         text = "MOTOR • REGULER • #KR-082",
                         color = Zinc400,
                         fontFamily = FontFamily.SansSerif,
-                        fontSize = 9.sp
+                        fontSize = 11.sp
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(10.dp))
 
             // Tombol Edit / Save Minimalis
             Box(
                 modifier = Modifier
-                    .background(if (isEdit) Slate950 else Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(if (isEdit) Slate950 else Color.White)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
                     .clickable { isEdit = !isEdit }
-                    .padding(horizontal = 10.dp, vertical = 5.dp)
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
             ) {
                 Text(
                     text = if (isEdit) "SAVE" else "EDIT",
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 9.sp,
-                    color = if (isEdit) Color.White else Slate950
+                    fontSize = 11.sp,
+                    color = if (isEdit) Color.White else Slate950,
+                    letterSpacing = 0.5.sp
                 )
             }
         }
 
         // ─── 2. DETIL DOKUMEN & AKUN ───
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "INFORMASI AKUN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Zinc50, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Zinc50)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                    .padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 ProfileInfoRow(
                     label = "USERNAME",
@@ -188,31 +188,33 @@ fun ProfilePage() {
         }
 
         // ─── 3. CARD BIO / DESKRIPSI ───
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "DESKRIPSI OPERASIONAL",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Color.White)
                     .border(BorderStroke(1.dp, if (isEdit) Zinc400 else Zinc200), RoundedCornerShape(2.dp))
-                    .padding(12.dp)
+                    .padding(14.dp)
             ) {
                 if (isEdit) {
                     BasicTextField(
                         value = description,
                         onValueChange = { description = it },
                         textStyle = TextStyle(
-                            fontSize = 11.sp,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
                             color = Slate950,
-                            lineHeight = 16.sp,
+                            lineHeight = 18.sp,
                             fontFamily = FontFamily.SansSerif
                         ),
                         modifier = Modifier.fillMaxWidth()
@@ -220,41 +222,43 @@ fun ProfilePage() {
                 } else {
                     Text(
                         text = description,
-                        fontSize = 11.sp,
+                        fontSize = 13.sp,
                         color = Zinc600,
-                        lineHeight = 16.sp
+                        lineHeight = 18.sp,
+                        fontFamily = FontFamily.SansSerif
                     )
                 }
             }
         }
 
         // ─── 4. CARD MOTIVASI / NOTE ───
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "CATATAN HARIAN",
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Zinc50, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Zinc50)
                     .border(BorderStroke(1.dp, if (isEdit) Zinc400 else Zinc200), RoundedCornerShape(2.dp))
-                    .padding(12.dp)
+                    .padding(14.dp)
             ) {
                 if (isEdit) {
                     BasicTextField(
                         value = note,
                         onValueChange = { note = it },
                         textStyle = TextStyle(
-                            fontSize = 11.sp,
+                            fontSize = 13.sp,
                             fontStyle = FontStyle.Italic,
                             color = Slate950,
-                            lineHeight = 16.sp,
+                            lineHeight = 18.sp,
                             fontFamily = FontFamily.SansSerif
                         ),
                         modifier = Modifier.fillMaxWidth()
@@ -262,10 +266,11 @@ fun ProfilePage() {
                 } else {
                     Text(
                         text = "\"$note\"",
-                        fontSize = 11.sp,
+                        fontSize = 13.sp,
                         fontStyle = FontStyle.Italic,
                         color = Zinc500,
-                        lineHeight = 16.sp
+                        lineHeight = 18.sp,
+                        fontFamily = FontFamily.SansSerif
                     )
                 }
             }

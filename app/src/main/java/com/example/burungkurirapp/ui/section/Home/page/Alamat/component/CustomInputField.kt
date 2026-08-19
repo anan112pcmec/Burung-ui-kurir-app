@@ -17,14 +17,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc400
-
+import com.example.burungkurirapp.ui.constant.color.Zinc600
 
 // ─── HELPER INPUT FIELD ───
 @Composable
@@ -35,21 +37,21 @@ fun CustomInputField(
     placeholder: String,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(
             text = label,
-            fontFamily = FontFamily.Monospace,
-            fontSize = 8.sp,
-            color = Zinc400,
+            fontFamily = FontFamily.SansSerif,
+            fontSize = 11.sp,
+            color = Zinc600,
             fontWeight = FontWeight.Bold
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp)
-                .background(Color.White, RoundedCornerShape(2.dp))
-                .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(horizontal = 10.dp),
+                .height(44.dp)
+                .background(Color.White, RoundedCornerShape(6.dp))
+                .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(6.dp))
+                .padding(horizontal = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             BasicTextField(
@@ -57,17 +59,24 @@ fun CustomInputField(
                 onValueChange = onValueChange,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+                textStyle = TextStyle(
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 13.sp,
+                    color = Slate950
+                ),
                 modifier = Modifier.fillMaxWidth(),
                 decorationBox = { innerTextField ->
-                    if (value.isEmpty()) {
-                        Text(
-                            text = placeholder,
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 10.sp,
-                            color = Zinc400
-                        )
+                    Box(contentAlignment = Alignment.CenterStart) {
+                        if (value.isEmpty()) {
+                            Text(
+                                text = placeholder,
+                                fontFamily = FontFamily.SansSerif,
+                                fontSize = 13.sp,
+                                color = Zinc400
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
                 }
             )
         }

@@ -7,19 +7,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -81,8 +78,8 @@ fun RekeningPage() {
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             // ─── 1. HEADER & ACTION ───
             Row(
@@ -90,19 +87,19 @@ fun RekeningPage() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(
                         text = "REKENING UTAMA",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Slate950,
-                        letterSpacing = 1.sp
+                        letterSpacing = 0.5.sp
                     )
                     Text(
-                        text = "PENARIKAN SALDO OPERASIONAL KURIR",
+                        text = "Penarikan saldo operasional kurir",
                         fontFamily = FontFamily.SansSerif,
-                        fontSize = 8.sp,
+                        fontSize = 12.sp,
                         color = Zinc400
                     )
                 }
@@ -111,27 +108,30 @@ fun RekeningPage() {
                 if (rekeningUtama == null && !isFormOpen) {
                     Box(
                         modifier = Modifier
-                            .background(Slate950, RoundedCornerShape(2.dp))
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(Slate950)
                             .clickable {
                                 resetForm()
                                 isFormOpen = true
                             }
-                            .padding(horizontal = 8.dp, vertical = 5.dp)
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        contentAlignment = Alignment.Center
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 contentDescription = null,
                                 tint = Color.White,
-                                modifier = Modifier.size(12.dp)
+                                modifier = Modifier.size(14.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = "TAUTKAN",
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
-                                color = Color.White
+                                fontSize = 11.sp,
+                                color = Color.White,
+                                letterSpacing = 0.5.sp
                             )
                         }
                     }
@@ -144,25 +144,28 @@ fun RekeningPage() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Zinc50, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Zinc50)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(10.dp)
+                    .padding(14.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = null,
                         tint = Zinc500,
-                        modifier = Modifier.size(14.dp)
+                        modifier = Modifier.size(18.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "KETENTUAN: 1 KURIR HANYA BISA MENAUTKAN 1 REKENING UTAMA.",
+                        text = "KETENTUAN: 1 Kurir hanya bisa menautkan 1 rekening utama.",
                         fontFamily = FontFamily.SansSerif,
-                        fontSize = 8.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = Zinc600,
-                        lineHeight = 12.sp
+                        lineHeight = 16.sp
                     )
                 }
             }
@@ -172,18 +175,19 @@ fun RekeningPage() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Zinc50, RoundedCornerShape(2.dp))
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Zinc50)
                         .border(BorderStroke(1.dp, Slate950), RoundedCornerShape(2.dp))
-                        .padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
                     Text(
                         text = if (isEditing) "FORM UBAH REKENING UTAMA" else "FORM TAUTKAN REKENING UTAMA",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         color = Slate950,
-                        letterSpacing = 1.sp
+                        letterSpacing = 0.5.sp
                     )
 
                     CustomInputField(
@@ -209,13 +213,14 @@ fun RekeningPage() {
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(36.dp)
-                                .background(Color.White, RoundedCornerShape(2.dp))
+                                .height(44.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(Color.White)
                                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
                                 .clickable { resetForm() },
                             contentAlignment = Alignment.Center
@@ -224,16 +229,18 @@ fun RekeningPage() {
                                 text = "BATAL",
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
-                                color = Zinc600
+                                fontSize = 11.sp,
+                                color = Zinc600,
+                                letterSpacing = 0.5.sp
                             )
                         }
 
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(36.dp)
-                                .background(Slate950, RoundedCornerShape(2.dp))
+                                .height(44.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(Slate950)
                                 .clickable {
                                     if (namaBankInput.isNotBlank() && nomorRekeningInput.isNotBlank()) {
                                         rekeningUtama = RekeningItem(
@@ -251,8 +258,9 @@ fun RekeningPage() {
                                 text = "SIMPAN REKENING",
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
-                                color = Color.White
+                                fontSize = 11.sp,
+                                color = Color.White,
+                                letterSpacing = 0.5.sp
                             )
                         }
                     }
@@ -260,14 +268,14 @@ fun RekeningPage() {
             }
 
             // ─── 4. DISPLAY REKENING UTAMA ATAU EMPTY STATE ───
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
                     text = "STATUS REKENING TERTAUT",
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 9.sp,
+                    fontSize = 11.sp,
                     color = Zinc400,
-                    letterSpacing = 1.sp
+                    letterSpacing = 0.5.sp
                 )
 
                 if (rekeningUtama == null) {
@@ -275,9 +283,10 @@ fun RekeningPage() {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Zinc50, RoundedCornerShape(2.dp))
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(Zinc50)
                             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                            .padding(20.dp),
+                            .padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -285,21 +294,21 @@ fun RekeningPage() {
                             text = "BELUM ADA REKENING TERKONEKSI",
                             fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 10.sp,
-                            color = Zinc400
+                            fontSize = 12.sp,
+                            color = Slate950
                         )
                         Text(
                             text = "Tautkan rekening bank Anda untuk menerima hasil pencairan pencapaian insentif.",
                             fontFamily = FontFamily.SansSerif,
-                            fontSize = 8.sp,
+                            fontSize = 12.sp,
                             color = Zinc500,
-                            lineHeight = 12.sp
+                            lineHeight = 16.sp
                         )
                     }
                 } else {
                     // Single Rekening Card Display
                     rekeningUtama?.let { item ->
-                        SingleRekeningCard (
+                        SingleRekeningCard(
                             item = item,
                             onEdit = { openFormForEdit() },
                             onDelete = { showDeleteConfirm = true }
@@ -315,42 +324,45 @@ fun RekeningPage() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.4f))
-                    .padding(16.dp),
+                    .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.White, RoundedCornerShape(2.dp))
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color.White)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
                         text = "LEPAS TAUTAN REKENING",
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 11.sp,
+                        fontSize = 12.sp,
                         color = Slate950,
-                        letterSpacing = 1.sp
+                        letterSpacing = 0.5.sp
                     )
 
                     Text(
                         text = "Apakah Anda yakin ingin menghapus rekening ${rekeningUtama?.namaBank} (${rekeningUtama?.nomorRekening})? Anda harus menautkan ulang rekening baru untuk penarikan saldo.",
-                        fontSize = 11.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 12.sp,
                         color = Zinc600,
-                        lineHeight = 16.sp
+                        lineHeight = 18.sp
                     )
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(36.dp)
-                                .background(Color.White, RoundedCornerShape(2.dp))
+                                .height(44.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(Color.White)
                                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
                                 .clickable { showDeleteConfirm = false },
                             contentAlignment = Alignment.Center
@@ -359,16 +371,18 @@ fun RekeningPage() {
                                 text = "BATAL",
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
-                                color = Zinc600
+                                fontSize = 11.sp,
+                                color = Zinc600,
+                                letterSpacing = 0.5.sp
                             )
                         }
 
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .height(36.dp)
-                                .background(Color(0xFFE11D48), RoundedCornerShape(2.dp))
+                                .height(44.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(Color(0xFFE11D48))
                                 .clickable {
                                     rekeningUtama = null
                                     showDeleteConfirm = false
@@ -380,8 +394,9 @@ fun RekeningPage() {
                                 text = "YA, LEPAS TAUTAN",
                                 fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
-                                color = Color.White
+                                fontSize = 11.sp,
+                                color = Color.White,
+                                letterSpacing = 0.5.sp
                             )
                         }
                     }

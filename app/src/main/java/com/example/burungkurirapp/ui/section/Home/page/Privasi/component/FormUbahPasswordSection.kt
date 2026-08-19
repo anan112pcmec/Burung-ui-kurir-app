@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.color.Zinc100
 import com.example.burungkurirapp.ui.constant.color.Zinc200
-
 
 // ─── FORM PRE-UBAH PASSWORD (KOMPONEN 2) ───
 @Composable
@@ -51,26 +51,27 @@ fun FormUbahPasswordSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White, RoundedCornerShape(2.dp))
+            .clip(RoundedCornerShape(2.dp))
+            .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Default.Lock,
                 contentDescription = null,
                 tint = Slate950,
-                modifier = Modifier.size(14.dp)
+                modifier = Modifier.size(16.dp)
             )
-            Spacer(modifier = Modifier.width(6.dp))
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "PERUBAHAN PASSWORD",
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 color = Slate950,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
         }
 
@@ -96,24 +97,25 @@ fun FormUbahPasswordSection(
             placeholder = "Minimal 8 karakter"
         )
 
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Tombol Trigger Pre-Ubah Password
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp)
-                .background(Slate950, RoundedCornerShape(2.dp))
+                .height(44.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Slate950)
                 .clickable { onSubmitPreUbah() },
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = "MINTA KODE VERIFIKASI (OTP)",
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
-                fontSize = 9.sp,
+                fontSize = 12.sp,
                 color = Color.White,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
         }
     }

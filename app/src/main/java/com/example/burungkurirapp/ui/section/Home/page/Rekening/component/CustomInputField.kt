@@ -15,14 +15,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc400
-
+import com.example.burungkurirapp.ui.constant.color.Zinc50
 
 @Composable
 fun CustomInputField(
@@ -31,21 +34,23 @@ fun CustomInputField(
     onValueChange: (String) -> Unit,
     placeholder: String
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(
             text = label,
             fontFamily = FontFamily.SansSerif,
-            fontSize = 8.sp,
+            fontSize = 11.sp,
             color = Zinc400,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp)
-                .background(Color.White, RoundedCornerShape(2.dp))
+                .height(44.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Zinc50)
                 .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             BasicTextField(
@@ -53,12 +58,17 @@ fun CustomInputField(
                 onValueChange = onValueChange,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 13.sp,
+                    color = Slate950
+                ),
                 decorationBox = { innerTextField ->
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
                             fontFamily = FontFamily.SansSerif,
-                            fontSize = 10.sp,
+                            fontSize = 13.sp,
                             color = Zinc400
                         )
                     }

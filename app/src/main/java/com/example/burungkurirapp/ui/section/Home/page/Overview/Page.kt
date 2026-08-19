@@ -1,4 +1,4 @@
-package com.example.burungkurirapp.ui.section.Overview
+package com.example.burungkurirapp.ui.section.Home.page.Overview
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,20 +45,20 @@ data class IssueBreakdown(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun OverviewPage() {
-    val timeRanges = listOf("Hari Ini", "Minggu Ini", "Bulan Ini", "Tahun Ini", "Custom Date")
+    val timeRanges = listOf("Hari Ini", "Minggu Ini", "Bulan Ini", "Tahun Ini", "Custom")
     var selectedTimeRange by remember { mutableStateOf("Minggu Ini") }
 
     val topMetrics = listOf(
-        TopMetric("RATA-RATA PICKUP LEAD TIME", "14.2 Min", "Sesuai SLA (<20m)"),
-        TopMetric("KETEPATAN WAKTU (ETA)", "97.4%", "+1.2% vs minggu lalu"),
-        TopMetric("DURASI SHIFT ONLINE", "9.2 Jam/Hari", "Aktif jam 08:00 - 18:00"),
-        TopMetric("KAPASITAS BEBAN RATA-RATA", "14.8 / 20 KG", "74% Kapasitas Terpakai"),
-        TopMetric("INCIDENT REPORT TIME", "3.5 Min", "Respon Darurat Cepat")
+        TopMetric("RATA-RATA PICKUP", "14.2 Min", "Sesuai SLA (<20m)"),
+        TopMetric("KETEPATAN WAKTU", "97.4%", "+1.2% vs minggu lalu"),
+        TopMetric("DURASI SHIFT", "9.2 Jam", "Aktif 08:00 - 18:00"),
+        TopMetric("BEBAN RATA-RATA", "14.8 Kg", "74% Kapasitas Terpakai"),
+        TopMetric("RESPON INSIDEN", "3.5 Min", "Respon Darurat Cepat")
     )
 
     val regionalDist = listOf(
-        RegionalDist("Jakarta Selatan (Kebayoran & Cilandak)", "52%", 0.52f, Slate950),
-        RegionalDist("Jakarta Barat (Kebon Jeruk & Palmerah)", "28%", 0.28f, Zinc600),
+        RegionalDist("Jakarta Selatan (Kebayoran)", "52%", 0.52f, Slate950),
+        RegionalDist("Jakarta Barat (Kebon Jeruk)", "28%", 0.28f, Zinc600),
         RegionalDist("Jakarta Pusat (Tanah Abang)", "12%", 0.12f, Zinc400),
         RegionalDist("Lainnya / Out-of-Bound", "8%", 0.08f, Zinc200)
     )
@@ -77,59 +78,62 @@ fun OverviewPage() {
             .fillMaxSize()
             .background(Color.White)
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         // ─── SECTION 1: HEADER & TIME-RANGE SELECTOR ───
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
                 text = "FLEET OPERATIONAL ANALYTICS",
-                fontFamily = FontFamily.Monospace,
-                fontSize = 8.sp,
+                fontFamily = FontFamily.SansSerif,
+                fontSize = 11.sp,
                 color = Zinc400,
-                letterSpacing = 1.sp,
+                letterSpacing = 0.5.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = "STATISTIK OPERASIONAL KURIR",
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
                 color = Slate950,
-                letterSpacing = 1.sp
+                letterSpacing = 0.5.sp
             )
+
+            Spacer(modifier = Modifier.height(6.dp))
 
             // Selector Horizontal Time Ranges
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState())
-                    .background(Zinc50, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Zinc50)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    .padding(6.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 timeRanges.forEach { range ->
                     val isSelected = range == selectedTimeRange
                     Box(
                         modifier = Modifier
-                            .background(
-                                if (isSelected) Slate950 else Color.White,
-                                RoundedCornerShape(2.dp)
-                            )
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(if (isSelected) Slate950 else Color.White)
                             .border(
                                 BorderStroke(1.dp, if (isSelected) Slate950 else Zinc200),
                                 RoundedCornerShape(2.dp)
                             )
                             .clickable { selectedTimeRange = range }
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .padding(horizontal = 12.dp, vertical = 6.dp),
+                        contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = range.uppercase(),
-                            fontFamily = FontFamily.Monospace,
+                            fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 8.sp,
-                            color = if (isSelected) Color.White else Zinc600
+                            fontSize = 11.sp,
+                            color = if (isSelected) Color.White else Zinc600,
+                            letterSpacing = 0.5.sp
                         )
                     }
                 }
@@ -143,43 +147,48 @@ fun OverviewPage() {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             topMetrics.forEach { metric ->
                 Column(
                     modifier = Modifier
-                        .width(160.dp)
-                        .background(Zinc50, RoundedCornerShape(2.dp))
+                        .width(170.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Zinc50)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                        .padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
                         text = metric.label,
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 7.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 10.sp,
                         color = Zinc400,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 10.sp
+                        lineHeight = 14.sp,
+                        letterSpacing = 0.5.sp
                     )
                     Text(
                         text = metric.value,
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         color = Slate950
                     )
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
                         Box(
                             modifier = Modifier
-                                .size(4.dp)
-                                .background(Slate950, RoundedCornerShape(2.dp))
+                                .size(6.dp)
+                                .clip(RoundedCornerShape(1.dp))
+                                .background(Slate950)
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = metric.stat,
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 7.sp,
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 10.sp,
                             color = Zinc600
                         )
                     }
@@ -188,71 +197,76 @@ fun OverviewPage() {
         }
 
         // ─── SECTION 3: WIDGET 1 - SHIFT & KEHADIRAN ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionTitleHeader("01. SHIFT & KEHADIRAN OPERASIONAL")
 
             // Heatmap Keaktifan Dispatch Matrix
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Color.White)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text(
                             text = "MATRIKS KEAKTIFAN DISPATCH",
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 8.sp,
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 11.sp,
                             color = Zinc400,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 0.5.sp
                         )
                         Text(
                             text = "Fokus Jam Aktif & Ambil Order",
-                            fontSize = 11.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
                             color = Slate950
                         )
                     }
                     Box(
                         modifier = Modifier
-                            .background(Zinc50, RoundedCornerShape(2.dp))
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(Zinc50)
                             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
                     ) {
                         Text(
                             text = "HOURLY LOG",
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 7.sp,
-                            color = Zinc600
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 9.sp,
+                            color = Zinc600,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
 
                 // Grid Matrix Rows (Sen-Min x 12 Blocks)
-                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     daysList.forEachIndexed { dIdx, day ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Text(
                                 text = day,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 8.sp,
-                                color = Zinc400,
-                                modifier = Modifier.width(20.dp)
+                                fontFamily = FontFamily.SansSerif,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Zinc500,
+                                modifier = Modifier.width(28.dp)
                             )
 
                             Row(
                                 modifier = Modifier.weight(1f),
-                                horizontalArrangement = Arrangement.spacedBy(2.dp)
+                                horizontalArrangement = Arrangement.spacedBy(3.dp)
                             ) {
                                 for (i in 0 until 12) {
                                     val cellColor = when {
@@ -263,9 +277,10 @@ fun OverviewPage() {
                                     Box(
                                         modifier = Modifier
                                             .weight(1f)
-                                            .height(16.dp)
-                                            .background(cellColor, RoundedCornerShape(1.dp))
-                                            .border(BorderStroke(0.5.dp, Zinc200), RoundedCornerShape(1.dp))
+                                            .height(20.dp)
+                                            .clip(RoundedCornerShape(2.dp))
+                                            .background(cellColor)
+                                            .border(BorderStroke(0.5.dp, Zinc200), RoundedCornerShape(2.dp))
                                     )
                                 }
                             }
@@ -278,9 +293,9 @@ fun OverviewPage() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("00:00 WIB", fontFamily = FontFamily.Monospace, fontSize = 7.sp, color = Zinc400)
-                    Text("12:00 WIB", fontFamily = FontFamily.Monospace, fontSize = 7.sp, color = Zinc400)
-                    Text("23:59 WIB", fontFamily = FontFamily.Monospace, fontSize = 7.sp, color = Zinc400)
+                    Text("00:00 WIB", fontFamily = FontFamily.SansSerif, fontSize = 10.sp, color = Zinc400)
+                    Text("12:00 WIB", fontFamily = FontFamily.SansSerif, fontSize = 10.sp, color = Zinc400)
+                    Text("23:59 WIB", fontFamily = FontFamily.SansSerif, fontSize = 10.sp, color = Zinc400)
                 }
             }
 
@@ -288,27 +303,30 @@ fun OverviewPage() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Zinc50, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Zinc50)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = "SHIFT COMPLIANCE RATE",
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 8.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 11.sp,
                         color = Zinc400,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.5.sp
                     )
                     Text(
                         text = "94.2%",
-                        fontFamily = FontFamily.Monospace,
+                        fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
+                        fontSize = 18.sp,
                         color = Slate950
                     )
                 }
@@ -327,24 +345,26 @@ fun OverviewPage() {
         }
 
         // ─── SECTION 4: WIDGET 2 - RUTE & EFISIENSI LOKASI ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionTitleHeader("02. RUTE, JARAK & EFISIENSI LOKASI")
 
             // Jarak Tempuh Progress Bars
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Color.White)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     text = "DISTRIBUSI JARAK TEMPUH (KM)",
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 8.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 11.sp,
                     color = Zinc400,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.5.sp
                 )
 
                 DistanceBarRow("Jarak Pendek (< 5 KM)", "55%", 0.55f, Slate950)
@@ -356,25 +376,28 @@ fun OverviewPage() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(2.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(Color.White)
                     .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     text = "KONSENTRASI RUTE OPERASIONAL",
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 8.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 11.sp,
                     color = Zinc400,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.5.sp
                 )
 
                 // Segmented Bar
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(10.dp)
-                        .background(Zinc100, RoundedCornerShape(1.dp))
+                        .height(12.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Zinc100)
                 ) {
                     regionalDist.forEach { dist ->
                         Box(
@@ -386,27 +409,35 @@ fun OverviewPage() {
                     }
                 }
 
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     regionalDist.forEach { dist ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(modifier = Modifier.size(6.dp).background(dist.color))
-                                Spacer(modifier = Modifier.width(6.dp))
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(8.dp)
+                                        .clip(RoundedCornerShape(2.dp))
+                                        .background(dist.color)
+                                )
                                 Text(
                                     text = dist.region,
-                                    fontSize = 10.sp,
-                                    color = Zinc600
+                                    fontSize = 12.sp,
+                                    color = Zinc600,
+                                    fontWeight = FontWeight.Medium
                                 )
                             }
                             Text(
                                 text = dist.percentage,
-                                fontFamily = FontFamily.Monospace,
+                                fontFamily = FontFamily.SansSerif,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 9.sp,
+                                fontSize = 12.sp,
                                 color = Slate950
                             )
                         }
@@ -416,35 +447,37 @@ fun OverviewPage() {
         }
 
         // ─── SECTION 5: WIDGET 3 - LAPORAN KENDALA & RISIKO ───
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionTitleHeader("03. LAPORAN KENDALA & MANAJEMEN RISIKO")
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 // Bar Chart Insiden (7 Hari)
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .background(Color.White, RoundedCornerShape(2.dp))
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color.White)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(
                         text = "INSIDEN (7 HARI)",
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 8.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 11.sp,
                         color = Zinc400,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.5.sp
                     )
 
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(60.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            .height(80.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                         verticalAlignment = Alignment.Bottom
                     ) {
                         incidentHistory.forEachIndexed { idx, count ->
@@ -455,22 +488,25 @@ fun OverviewPage() {
                             ) {
                                 Text(
                                     text = count.toString(),
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 7.sp,
-                                    color = Zinc400
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Zinc500
                                 )
-                                Spacer(modifier = Modifier.height(2.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .height(if (count == 0) 2.dp else (count * 15).dp)
+                                        .height(if (count == 0) 4.dp else (count * 20).dp)
+                                        .clip(RoundedCornerShape(2.dp))
                                         .background(if (count > 2) Color(0xFFE11D48) else Slate950)
                                 )
-                                Spacer(modifier = Modifier.height(2.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = daysList[idx],
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 7.sp,
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
                                     color = Zinc600
                                 )
                             }
@@ -482,41 +518,46 @@ fun OverviewPage() {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .background(Color.White, RoundedCornerShape(2.dp))
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(Color.White)
                         .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(2.dp))
-                        .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                        .padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
                         text = "PENYEBAB RETUR",
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 8.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 11.sp,
                         color = Zinc400,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.5.sp
                     )
 
                     issueBreakdown.forEach { issue ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = issue.type,
-                                fontSize = 8.sp,
-                                color = Zinc600,
-                                modifier = Modifier.weight(1f),
-                                maxLines = 1
-                            )
-                            Text(
-                                text = "${issue.count} (${issue.share})",
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 8.sp,
-                                color = Slate950
-                            )
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = issue.type,
+                                    fontSize = 11.sp,
+                                    color = Zinc600,
+                                    modifier = Modifier.weight(1f),
+                                    maxLines = 1,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Text(
+                                    text = "${issue.count} (${issue.share})",
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp,
+                                    color = Slate950
+                                )
+                            }
+                            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Zinc100))
                         }
-                        Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Zinc100))
                     }
                 }
             }
@@ -529,43 +570,46 @@ fun OverviewPage() {
 private fun SectionTitleHeader(title: String) {
     Text(
         text = title,
-        fontFamily = FontFamily.Monospace,
+        fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Bold,
-        fontSize = 9.sp,
+        fontSize = 12.sp,
         color = Zinc400,
-        letterSpacing = 1.sp
+        letterSpacing = 0.5.sp
     )
 }
 
 @Composable
 private fun DetailTextRow(label: String, value: String, valueColor: Color) {
-    Column {
-        Text(text = label, fontFamily = FontFamily.Monospace, fontSize = 7.sp, color = Zinc400)
-        Text(text = value, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 9.sp, color = valueColor)
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(text = label, fontFamily = FontFamily.SansSerif, fontSize = 10.sp, color = Zinc400)
+        Text(text = value, fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 12.sp, color = valueColor)
     }
 }
 
 @Composable
 private fun DistanceBarRow(label: String, percentageText: String, fraction: Float, barColor: Color) {
-    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(label, fontSize = 9.sp, color = Zinc600)
-            Text(percentageText, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 9.sp, color = Slate950)
+            Text(label, fontSize = 12.sp, color = Zinc600, fontWeight = FontWeight.Medium)
+            Text(percentageText, fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Slate950)
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(4.dp)
-                .background(Zinc100, RoundedCornerShape(1.dp))
+                .height(6.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Zinc100)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(fraction = fraction)
-                    .background(barColor, RoundedCornerShape(1.dp))
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(barColor)
             )
         }
     }

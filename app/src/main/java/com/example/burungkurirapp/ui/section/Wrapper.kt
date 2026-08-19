@@ -21,6 +21,7 @@ import com.example.burungkurirapp.ui.GeneralReusable.SideBar.SideBar
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.LandingSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.TugasSectionPrefix
 import com.example.burungkurirapp.ui.routes.RoutesProps
 import com.example.burungkurirapp.ui.routes.Routing
@@ -61,7 +62,8 @@ fun BurungKurirAppWrapper() {
                 SectionRouting(HomeSectionPrefix, HomeSectionRouting),
                 SectionRouting(AuthSectionPrefix, AuthSectionRouting),
                 SectionRouting(LandingSectionPrefix, LandingSectionRouting),
-                SectionRouting(TugasSectionPrefix, TugasSectionRouting)
+                SectionRouting(TugasSectionPrefix, TugasSectionRouting),
+                SectionRouting(RiwayatSectionPrefix, RiwayatSectionRouting)
             )
         }
 

@@ -22,6 +22,7 @@ import com.example.burungkurirapp.statis.icons.FontAwesomeShippingFast
 import com.example.burungkurirapp.statis.icons.VscodeCodiconsHome
 import com.example.burungkurirapp.ui.constant.color.Slate950
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.TugasSectionPrefix
 
 // 1. Bikin data class pengganti "Quadruple" biar rapi dan legal di Kotlin
@@ -74,7 +75,7 @@ fun NavFooterPage(
                     label = "RIWAYAT",
                     index = 3,
                     onClick = {
-                         RoutingElement.navigate("/riwayat")
+                         RoutingElement.navigate("$RiwayatSectionPrefix/")
                     }
                 )
             )
