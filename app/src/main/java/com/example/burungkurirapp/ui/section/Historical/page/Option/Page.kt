@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountBalance
@@ -45,13 +47,14 @@ import com.example.burungkurirapp.ui.section.rememberUiFlowState
 fun HistoricalOptionPage(
     option: List<OptionProps>
 ) {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
-        val uiFlowState = LocalUiFlowState.current
 
+        val uiFlowState = LocalUiFlowState.current
+        val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(scrollState),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             option.forEach { item ->
@@ -109,7 +112,7 @@ fun HistoricalOptionPage(
             }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable

@@ -4,7 +4,6 @@ package com.example.burungkurirapp.ui.constant.types
 data class RekeningKurir(
     val Id: Long,
     val IdKurir: Long,
-    val Kurir: Kurir?,
     val NamaBank: String,
     val NomorRekening: String,
     val PemilikRekening: String,

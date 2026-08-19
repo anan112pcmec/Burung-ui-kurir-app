@@ -51,10 +51,9 @@ import java.util.Locale
 @Composable
 fun DetailsRekeningPage(
     data: RekeningKurir,
-    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(vertical = 16.dp),

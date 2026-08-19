@@ -8,6 +8,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class RoutesProps(
     val name: String,
     val Path: String,
-    val Icon: ImageVector,
+    val Icon: ImageVector?,
     val Component: List<@Composable () -> Unit>
 )

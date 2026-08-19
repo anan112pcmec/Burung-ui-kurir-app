@@ -21,13 +21,29 @@ import androidx.compose.material.icons.filled.PhonelinkLock
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.LandingSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.TugasSectionPrefix
+import com.example.burungkurirapp.ui.constant.types.AlamatKurir
+import com.example.burungkurirapp.ui.constant.types.BidKurirData
+import com.example.burungkurirapp.ui.constant.types.InformasiKendaraanKurir
+import com.example.burungkurirapp.ui.constant.types.InformasiKurir
+import com.example.burungkurirapp.ui.constant.types.Kurir
+import com.example.burungkurirapp.ui.constant.types.NotificationKurir
+import com.example.burungkurirapp.ui.constant.types.Pengiriman
+import com.example.burungkurirapp.ui.constant.types.RekeningKurir
 import com.example.burungkurirapp.ui.routes.RoutesProps
 import com.example.burungkurirapp.ui.section.Auth.page.Login.LoginPage
 import com.example.burungkurirapp.ui.section.Auth.page.SignUp.SignUpPage
+import com.example.burungkurirapp.ui.section.Details.page.Alamat.DetailsAlamatPage
+import com.example.burungkurirapp.ui.section.Details.page.Bid.DetailsBidPage
+import com.example.burungkurirapp.ui.section.Details.page.InformasiKendaraanKurir.DetailsInformasiKendaraanKurirPage
+import com.example.burungkurirapp.ui.section.Details.page.InformasiKurir.DetailsInformasiKurirPage
+import com.example.burungkurirapp.ui.section.Details.page.Pengiriman.DetailsPengirimanPage
+import com.example.burungkurirapp.ui.section.Details.page.Rekening.DetailsRekeningPage
+import com.example.burungkurirapp.ui.section.Historical.page.Aktivitas.HistoricalAktivitasPage
 import com.example.burungkurirapp.ui.section.Historical.page.Alamat.HistoricalAlamatPage
 import com.example.burungkurirapp.ui.section.Historical.page.Informasi.HistoricalInformasiPage
 import com.example.burungkurirapp.ui.section.Historical.page.Option.HistoricalOptionPage
@@ -137,94 +153,350 @@ val TugasSectionRouting: List<RoutesProps> = listOf(
 )
 
 val RiwayatSectionRouting: List<RoutesProps> = listOf(
+    // 1. Root / Option Page
     RoutesProps(
         name = "Option",
-        Path = "$RiwayatSectionPrefix/",
+        Path = "$RiwayatSectionPrefix/", // Menggunakan prefix utama
         Icon = Icons.Default.HistoryToggleOff,
-        Component = listOf({ HistoricalOptionPage(option = listOf(
-            OptionProps(
-                nama = "Riwayat Pengiriman",
-                path = "history_pengiriman",
-                icon = Icons.Default.LocalShipping
-            ),
-            OptionProps(
-                nama = "Riwayat Pencairan Saldo",
-                path = "history_pencairan",
-                icon = Icons.Default.Payments
-            ),
-            OptionProps(
-                nama = "Log Aktivitas Kurir",
-                path = "history_aktivitas",
-                icon = Icons.Default.History
-            ),
-            OptionProps(
-                nama = "Riwayat Bid",
-                path = "history_bid",
-                icon = Icons.Default.Gavel
-            ),
-            OptionProps(
-                nama = "Riwayat Informasi Kendaraan",
-                path = "history_kendaraan",
-                icon = Icons.Default.DirectionsCar
-            ),
-            OptionProps(
-                nama = "Riwayat Informasi Kurir",
-                path = "history_kurir",
-                icon = Icons.Default.Person
-            ),
-            OptionProps(
-                nama = "Riwayat Profile",
-                path = "history_profile",
-                icon = Icons.Default.AccountCircle
-            ),
-            OptionProps(
-                nama = "Riwayat Rekening",
-                path = "history_rekening",
-                icon = Icons.Default.AccountBalance
-            ),
-            OptionProps(
-                nama = "Riwayat Alamat",
-                path = "history_alamat",
-                icon = Icons.Default.LocationOn
-            )
-        )) })
+        Component = listOf({
+            HistoricalOptionPage(option = listOf(
+                OptionProps(
+                    nama = "Riwayat Pengiriman",
+                    path = "$RiwayatSectionPrefix/Pengiriman",
+                    icon = Icons.Default.LocalShipping
+                ),
+                OptionProps(
+                    nama = "Log Aktivitas Kurir",
+                    path = "$RiwayatSectionPrefix/Aktivitas",
+                    icon = Icons.Default.History
+                ),
+                OptionProps(
+                    nama = "Riwayat Bid",
+                    path = "$RiwayatSectionPrefix/Bid",
+                    icon = Icons.Default.Gavel
+                ),
+                OptionProps(
+                    nama = "Riwayat Informasi Kendaraan",
+                    path = "$RiwayatSectionPrefix/Informasi",
+                    icon = Icons.Default.DirectionsCar
+                ),
+                OptionProps(
+                    nama = "Riwayat Informasi Kurir",
+                    path = "$RiwayatSectionPrefix/Informasi",
+                    icon = Icons.Default.Person
+                ),
+                OptionProps(
+                    nama = "Riwayat Profile",
+                    path = "$RiwayatSectionPrefix/Profile",
+                    icon = Icons.Default.AccountCircle
+                ),
+                OptionProps(
+                    nama = "Riwayat Rekening",
+                    path = "$RiwayatSectionPrefix/Rekening",
+                    icon = Icons.Default.AccountBalance
+                ),
+                OptionProps(
+                    nama = "Riwayat Alamat",
+                    path = "$RiwayatSectionPrefix/Alamat",
+                    icon = Icons.Default.LocationOn
+                )
+            ))
+        })
     ),
 
+    // 2. Detail Pages
     RoutesProps(
         name = "Alamat",
         Path = "$RiwayatSectionPrefix/Alamat",
         Icon = Icons.Default.LocationOn,
-        Component = listOf({ HistoricalAlamatPage () })
+        Component = listOf({ HistoricalAlamatPage() })
     ),
     RoutesProps(
         name = "Informasi",
         Path = "$RiwayatSectionPrefix/Informasi",
-        Icon = Icons.Default.LocationOn,
-        Component = listOf({ HistoricalInformasiPage () })
+        Icon = Icons.Default.Info, // Diubah agar lebih pas dengan informasi
+        Component = listOf({ HistoricalInformasiPage() })
+    ),
+    RoutesProps(
+        name = "Aktivitas",
+        Path = "$RiwayatSectionPrefix/Aktivitas",
+        Icon = Icons.Default.History,
+        Component = listOf({ HistoricalAktivitasPage( listOf(
+            NotificationKurir(
+                IdKurir = 1,
+                Pengirim = "Logistik Hub Jakarta",
+                Judul = "Paket Telah Diserahterimakan",
+                Pesan = "Kurir telah berhasil menyerahkan paket kepada penerima di alamat tujuan utama.",
+                Pop = 1.0f,
+                Archive = false,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "10:45",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(
+                    Metadata = mapOf("resi" to "JP123456789"),
+                    Special = "express"
+                )
+            ),
+            NotificationKurir(
+                IdKurir = 2,
+                Pengirim = "Sistem Otomasi",
+                Judul = "Pembaruan Rute Perjalanan",
+                Pesan = "Terdapat pengalihan rute karena adanya perbaikan jalan di sekitar wilayah Jakarta Selatan.",
+                Pop = 0.5f,
+                Archive = false,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "Kemarin",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(
+                    Metadata = mapOf("zone" to "B"),
+                    Special = false
+                )
+            ),
+        ))})
     ),
     RoutesProps(
         name = "Bid",
         Path = "$RiwayatSectionPrefix/Bid",
-        Icon = Icons.Default.LocalOffer, // Menggunakan penawaran/tag untuk bid
+        Icon = Icons.Default.LocalOffer,
         Component = listOf({ HistoricalBidPage() })
     ),
-
     RoutesProps(
         name = "Pengiriman",
         Path = "$RiwayatSectionPrefix/Pengiriman",
-        Icon = Icons.Default.LocalShipping, // Menggunakan truk/pengiriman logistik
+        Icon = Icons.Default.LocalShipping,
         Component = listOf({ HistoricalPengirimanPage() })
     ),
     RoutesProps(
         name = "Profile",
         Path = "$RiwayatSectionPrefix/Profile",
-        Icon = Icons.Default.Person, // Menggunakan profil pengguna/kurir
+        Icon = Icons.Default.Person,
         Component = listOf({ HistoricalProfilePage() })
     ),
     RoutesProps(
         name = "Rekening",
         Path = "$RiwayatSectionPrefix/Rekening",
-        Icon = Icons.Default.AccountBalanceWallet, // Menggunakan dompet/rekening keuangan
-        Component = listOf({ HistoricalRekeningPage() })
+        Icon = Icons.Default.AccountBalanceWallet,
+        Component = listOf({ HistoricalRekeningPage() }) // Koma sudah ditambahkan di sini
     )
+)
+
+val DetailsSectionRouting: List<RoutesProps> = listOf(
+    RoutesProps(
+        name = "Alamat",
+        Path = "$DetailsSectionPrefix/Alamat",
+        Icon = null,
+        Component = listOf({ DetailsAlamatPage(AlamatKurir(
+            Id = 1,
+            IdKurir = 101,
+            PanggilanAlamat = "Rumah Utama",
+            NomorTelephone = "081234567890",
+            NamaAlamat = "Jl. Sudirman No. 45, RT 01/RW 02",
+            Provinsi = "DKI Jakarta",
+            Kota = "Jakarta Selatan",
+            KodeNegara = "ID",
+            KodePos = "12190",
+            Deskripsi = "Catatan: Pagar warna hitam, sebelah minimarket.",
+            Longitude = 106.827153,
+            Latitude = -6.229728,
+            CreatedAt = "2026-06-01T08:00:00Z",
+            UpdatedAt = "2026-06-01T08:00:00Z"
+        )) })
+    ),
+    RoutesProps(
+        name = "Bid",
+        Path = "$DetailsSectionPrefix/Bid",
+        Icon = null,
+        Component = listOf({ DetailsBidPage(
+            BidKurirData(
+                Id = 1,
+                IdKurir = 101,
+                JenisPengiriman = "SameDay",
+                Mode = "Motor",
+                Provinsi = "DKI Jakarta",
+                Kota = "Jakarta Selatan",
+                IsEkspedisi = false,
+                Alamat = "Gudang Utama Jakarta Selatan",
+                Longitude = 106.827153,
+                Latitude = -6.229728,
+                MaxKg = 50,
+                SlotTersisa = 3,
+                Dimulai = "2026-06-01T08:00:00Z",
+                Selesai = "2026-06-01T18:00:00Z",
+                CreatedAt = "2026-06-01T07:00:00Z",
+                UpdatedAt = "2026-06-01T07:00:00Z",
+                ListPengiriman = listOf(
+                    Pengiriman(
+                        Id = 501,
+                        IdTransaksi = 9001,
+                        IdSeller = 202,
+                        IdAlamatGudang = 301,
+                        IdAlamatPengguna = 401,
+                        IdKurir = 101,
+                        BeratBarang = 5,
+                        KendaraanRequired = "Motor",
+                        JenisPengiriman = "SameDay",
+                        JarakTempuh = "4.5 km",
+                        KurirPaid = "15000",
+                        Status = "Pending",
+                        CreatedAt = "2026-06-01T07:30:00Z",
+                        Transaksi = null,       // Bisa diisi dummy Transaksi jika ada class-nya
+                        AlamatGudang = null,    // Bisa diisi dummy AlamatGudang jika ada class-nya
+                        AlamatPengguna = null   // Bisa diisi dummy AlamatPengguna jika ada class-nya
+                    )
+                ),
+                ListPengirimanEks = null // Karena IsEkspedisi false, bagian ekspedisi dikosongkan
+            )
+        ) })
+    ),
+    RoutesProps(
+        name = "Informasi Kendaraan Kurir",
+        Path = "$DetailsSectionPrefix/InformasiKendaraanKurir",
+        Icon = null,
+        Component = listOf({ DetailsInformasiKendaraanKurirPage(
+            InformasiKendaraanKurir(
+                Id = 1,
+                IdKurir = 101,
+                JenisKendaraan = "Sepeda Motor",
+                NamaKendaraan = "Honda Beat CBS ISS",
+                RodaKendaraan = "2",
+                InformasiStnk = true,
+                InformasiBpkb = true,
+                NomorRangka = "MH1JM211XMK123456",
+                NomorMesin = "JM21E-1123456",
+                Status = "Aktif",
+                CreatedAt = "2026-06-01T08:00:00Z",
+                UpdatedAt = "2026-06-01T08:00:00Z",
+                fotoKendaraan = "https://picsum.photos/seed/motor/400/300",
+                fotoBpkb = "https://picsum.photos/seed/bpkb/400/300",
+                fotoSTNK = "https://picsum.photos/seed/stnk/400/300"
+            )
+        ) })
+    ),
+    RoutesProps(
+        name = "Informasi Kurir",
+        Path = "$DetailsSectionPrefix/InformasiKurir",
+        Icon = null,
+        Component = listOf({ DetailsInformasiKurirPage(
+            Kurir(
+                Id = 101,
+                Nama = "Budi Santoso",
+                Username = "budisantoso",
+                Email = "budi.santoso@email.com",
+                Jenis = "Ekspres",
+                PasswordHash = "\$2a\$12\$e8...mockedHashValue...",
+                Deskripsi = "Kurir berpengalaman wilayah Jakarta Selatan.",
+                StatusKurir = "Aktif",
+                StatusBid = "Tersedia",
+                VerifierKurir = true,
+                TipeKendaraan = "Motor",
+                CreatedAt = "2026-01-10T08:00:00Z",
+                UpdatedAt = "2026-06-01T08:00:00Z"
+            ),
+            InformasiKurir(
+            Id = 1,
+            IdKurir = 101,
+            TanggalLahir = "1998-08-17",
+            Alasan = "Lengkap dan terverifikasi",
+            InformasiKtp = true,
+            InformasiSim = true,
+            Status = "Verified",
+            CreatedAt = "2026-06-01T08:00:00Z",
+            UpdatedAt = "2026-06-01T08:00:00Z",
+            urlFotoKtp = "https://picsum.photos/seed/ktp/400/300",
+            urlFotoSim = "https://picsum.photos/seed/sim/400/300"
+        )
+        ) })
+    ),
+    RoutesProps(
+        name = "Pengiriman",
+        Path = "$DetailsSectionPrefix/Pengiriman",
+        Icon = null,
+        Component = listOf({ DetailsPengirimanPage(
+            Pengiriman(
+                Id = 501,
+                IdTransaksi = 9001,
+                IdSeller = 202,
+                IdAlamatGudang = 301,
+                IdAlamatPengguna = 401,
+                IdKurir = 101,
+                BeratBarang = 5,
+                KendaraanRequired = "Motor",
+                JenisPengiriman = "SameDay",
+                JarakTempuh = "4.5 km",
+                KurirPaid = "15000",
+                Status = "Pending",
+                CreatedAt = "2026-06-01T07:30:00Z",
+                Transaksi = null,      // Bisa diisi instance dummy Transaksi jika ada
+                AlamatGudang = null,   // Bisa diisi instance dummy AlamatGudang jika ada
+                AlamatPengguna = null  // Bisa diisi instance dummy AlamatPengguna jika ada
+            )
+        ) })
+    ),
+    RoutesProps(
+        name = "Rekening",
+        Path = "$DetailsSectionPrefix/Rekening",
+        Icon = null,
+        Component = listOf({ DetailsRekeningPage(
+            RekeningKurir(
+                Id = 1,
+                IdKurir = 101,
+                NamaBank = "BCA",
+                NomorRekening = "1234567890",
+                PemilikRekening = "Budi Santoso",
+                CreatedAt = "2026-06-01T08:00:00Z",
+                UpdatedAt = "2026-06-19T08:00:00Z",
+
+                // Total Keseluruhan (All-time)
+                PengirimanDisbursmentCount = 120,
+                PemasukanTotal = 2400000L,
+                DisbursmentGagalCount = 2,
+                PendingDisbursmentAmount = 50000L,
+
+                // Data Per Hari Ini (Today)
+                PengirimanDisbursmentCountHariIni = 4,
+                PemasukanTotalHariIni = 80000L,
+                DisbursmentGagalCountHariIni = 0,
+                PendingDisbursmentAmountHariIni = 0L,
+
+                // Data Per Minggu Ini (This Week)
+                PengirimanDisbursmentCountMingguIni = 25,
+                PemasukanTotalMingguIni = 500000L,
+                DisbursmentGagalCountMingguIni = 1,
+                PendingDisbursmentAmountMingguIni = 20000L,
+
+                // Data Per Bulan Ini (This Month)
+                PengirimanDisbursmentCountBulanIni = 95,
+                PemasukanTotalBulanIni = 1900000L,
+                DisbursmentGagalCountBulanIni = 2,
+                PendingDisbursmentAmountBulanIni = 30000L,
+
+                // Data Per Tahun Ini (This Year)
+                PengirimanDisbursmentCountTahunIni = 120,
+                PemasukanTotalTahunIni = 2400000L,
+                DisbursmentGagalCountTahunIni = 2,
+                PendingDisbursmentAmountTahunIni = 50000L,
+
+                listPengirimanTerkaitRek = listOf(Pengiriman(
+                    Id = 501,
+                    IdTransaksi = 9001,
+                    IdSeller = 202,
+                    IdAlamatGudang = 301,
+                    IdAlamatPengguna = 401,
+                    IdKurir = 101,
+                    BeratBarang = 5,
+                    KendaraanRequired = "Motor",
+                    JenisPengiriman = "SameDay",
+                    JarakTempuh = "4.5 km",
+                    KurirPaid = "15000",
+                    Status = "Pending",
+                    CreatedAt = "2026-06-01T07:30:00Z",
+                    Transaksi = null,      // Bisa diisi instance dummy Transaksi jika ada
+                    AlamatGudang = null,   // Bisa diisi instance dummy AlamatGudang jika ada
+                    AlamatPengguna = null  // Bisa diisi instance dummy AlamatPengguna jika ada
+                ))
+            )
+        ) })
+    ),
 )

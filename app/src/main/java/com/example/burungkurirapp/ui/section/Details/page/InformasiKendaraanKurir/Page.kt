@@ -36,12 +36,11 @@ import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.constant.types.InformasiKendaraanKurir
 
 @Composable
-fun InformasiKendaraanKurirPage(
+fun DetailsInformasiKendaraanKurirPage(
     data: InformasiKendaraanKurir,
-    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
@@ -235,5 +234,5 @@ private fun PrevInformasiKendaraanKurirPage() {
         fotoBpkb = null,
         fotoSTNK = null
     )
-    InformasiKendaraanKurirPage(data = sampleData)
+    DetailsInformasiKendaraanKurirPage(data = sampleData)
 }
