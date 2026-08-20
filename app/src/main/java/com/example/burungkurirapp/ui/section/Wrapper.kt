@@ -19,6 +19,7 @@ import com.example.burungkurirapp.ui.GeneralReusable.NavHeader.ReusableHeader
 import com.example.burungkurirapp.ui.GeneralReusable.SideBar.Element
 import com.example.burungkurirapp.ui.GeneralReusable.SideBar.SideBar
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.LandingSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
@@ -29,6 +30,7 @@ import com.example.burungkurirapp.ui.routes.Routing
 class UiFlowState(val navController: NavHostController) {
     var isSidebarOpen by mutableStateOf(false)
     var rnPrefix by mutableStateOf(LandingSectionPrefix)
+    var rnPage by mutableStateOf("/")
     var rnRouting by mutableStateOf(LandingSectionRouting)
 }
 
@@ -63,7 +65,8 @@ fun BurungKurirAppWrapper() {
                 SectionRouting(AuthSectionPrefix, AuthSectionRouting),
                 SectionRouting(LandingSectionPrefix, LandingSectionRouting),
                 SectionRouting(TugasSectionPrefix, TugasSectionRouting),
-                SectionRouting(RiwayatSectionPrefix, RiwayatSectionRouting)
+                SectionRouting(RiwayatSectionPrefix, RiwayatSectionRouting),
+                SectionRouting(DetailsSectionPrefix, DetailsSectionRouting)
             )
         }
 
@@ -72,6 +75,9 @@ fun BurungKurirAppWrapper() {
             if (currentRoute == section.Prefix || currentRoute.startsWith("${section.Prefix}/")) {
                 state.rnPrefix = section.Prefix
                 state.rnRouting = section.Routing
+
+                val page = currentRoute.removePrefix(section.Prefix).removePrefix("/")
+                state.rnPage = if (page.isNotEmpty()) page else "/"
             }
         }
 
@@ -86,6 +92,7 @@ fun BurungKurirAppWrapper() {
                 // Header
                 NavHeader.ReusableHeader(
                     headerType = state.rnPrefix,
+                    pageName = state.rnPage,
                     OpenSideBar = { state.isSidebarOpen = !state.isSidebarOpen },
                     navigation = state.navController
                 )

@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.LocalUiFlowState
 import com.example.burungkurirapp.ui.section.rememberUiFlowState
 
@@ -48,7 +49,6 @@ fun HistoricalRekeningPage(
     onBankFilterSelect: (String) -> Unit = {},
     onDateFilterClick: () -> Unit = {}
 ) {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
     val state = LocalUiFlowState.current
 
     var selectedBank by remember { mutableStateOf("Semua Bank") }
@@ -208,21 +208,19 @@ fun HistoricalRekeningPage(
                 ) { rekeningItem ->
                     HistoricalRekeningCardItem(
                         data = rekeningItem,
-                        onCardClick = { rekeningId ->
-                            state?.navController?.navigate("/details/historical-rekening/$rekeningId")
+                        onCardClick = { state?.navController?.navigate("$DetailsSectionPrefix/Rekening")
                         }
                     )
                 }
             }
         }
     }
-        }
 }
 
 @Composable
 fun HistoricalRekeningCardItem(
     data: HistoricalRekeningItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -230,7 +228,7 @@ fun HistoricalRekeningCardItem(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(

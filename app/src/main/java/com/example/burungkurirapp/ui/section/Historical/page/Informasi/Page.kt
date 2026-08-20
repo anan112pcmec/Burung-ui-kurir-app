@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.LocalUiFlowState
 import com.example.burungkurirapp.ui.section.rememberUiFlowState
 
@@ -65,7 +66,6 @@ fun HistoricalInformasiPagePreview() {
 
 @Composable
 fun HistoricalInformasiPage() {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
         val state = LocalUiFlowState.current
         var selectedTab by remember { mutableStateOf(InformasiTabCategory.KURIR) }
 
@@ -190,8 +190,7 @@ fun HistoricalInformasiPage() {
                         ) { item ->
                             HistoricalInformasiKurirCard(
                                 data = item,
-                                onCardClick = { id ->
-                                    state?.navController?.navigate("/details/historical-informasi/kurir/$id")
+                                onCardClick = {state?.navController?.navigate("$DetailsSectionPrefix/InformasiKurir")
                                 }
                             )
                         }
@@ -202,8 +201,9 @@ fun HistoricalInformasiPage() {
                         ) { item ->
                             HistoricalInformasiKendaraanCard(
                                 data = item,
-                                onCardClick = { id ->
-                                    state?.navController?.navigate("/details/historical-informasi/kendaraan/$id")
+                                onCardClick = {
+
+                                    state?.navController?.navigate("$DetailsSectionPrefix/InformasiKendaraanKurir")
                                 }
                             )
                         }
@@ -211,7 +211,6 @@ fun HistoricalInformasiPage() {
                 }
             }
         }
-    }
 }
 
 // ─── TAB CHIP COMPONENT ───
@@ -243,7 +242,7 @@ private fun InformasiTabChip(
 @Composable
 fun HistoricalInformasiKurirCard(
     data: HistoricalInformasiKurirItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -251,7 +250,7 @@ fun HistoricalInformasiKurirCard(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -322,7 +321,7 @@ fun HistoricalInformasiKurirCard(
 @Composable
 fun HistoricalInformasiKendaraanCard(
     data: HistoricalInformasiKendaraanItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -330,7 +329,7 @@ fun HistoricalInformasiKendaraanCard(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

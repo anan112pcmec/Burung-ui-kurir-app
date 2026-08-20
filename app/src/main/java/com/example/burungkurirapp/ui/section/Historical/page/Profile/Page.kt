@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.LocalUiFlowState
 import com.example.burungkurirapp.ui.section.rememberUiFlowState
 
@@ -46,7 +47,6 @@ fun HistoricalProfilePagePreview() {
 fun HistoricalProfilePage(
     onDateFilterClick: () -> Unit = {}
 ) {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
     val state = LocalUiFlowState.current
 
     val dummyHistoryList = remember {
@@ -146,21 +146,20 @@ fun HistoricalProfilePage(
                 ) { historyItem ->
                     HistoricalProfileCardItem(
                         data = historyItem,
-                        onCardClick = { profileId ->
-                            state?.navController?.navigate("/details/historical-profile/$profileId")
+                        onCardClick = {
+                            state?.navController?.navigate("$DetailsSectionPrefix/InformasiKurir")
                         }
                     )
                 }
             }
         }
     }
-        }
 }
 
 @Composable
 fun HistoricalProfileCardItem(
     data: HistoricalProfileItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -168,7 +167,7 @@ fun HistoricalProfileCardItem(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(

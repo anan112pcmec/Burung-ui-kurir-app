@@ -55,6 +55,7 @@ import com.example.burungkurirapp.ui.constant.color.Zinc400
 import com.example.burungkurirapp.ui.constant.color.Zinc600
 import com.example.burungkurirapp.ui.constant.color.Zinc950
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.LandingSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
@@ -775,9 +776,81 @@ fun NavHeader.RiwayatPage(
         }
     }
 }
+
+@Composable
+fun NavHeader.DetailsPage(
+    pageName: String = "Detail",
+    onBackClick: () -> Unit = {}
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .border(BorderStroke(1.dp, Zinc100))
+    ) {
+        // Safe Inset Handling untuk Status Bar
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .windowInsetsTopHeight(WindowInsets.statusBars)
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // LEFT: TOMBOL KEMBALI & JUDUL DETAILS
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Surface(
+                    onClick = onBackClick,
+                    shape = CircleShape,
+                    color = Zinc100,
+                    border = BorderStroke(1.dp, Zinc200),
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Kembali",
+                        tint = Slate950,
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .size(18.dp)
+                    )
+                }
+
+                Column(verticalArrangement = Arrangement.Center) {
+                    Text(
+                        text = pageName.uppercase(),
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = Slate950,
+                        letterSpacing = 0.5.sp
+                    )
+                    Text(
+                        text = "Informasi & Detail Data",
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 10.sp,
+                        color = Zinc600,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
+        }
+    }
+}
 @Composable
 fun NavHeader.ReusableHeader(
     headerType: String,
+    pageName: String?,
     OpenSideBar: () -> Unit = {},
     navigation: NavHostController,
     isAutoBidActive: Boolean = false,
@@ -815,6 +888,13 @@ fun NavHeader.ReusableHeader(
             )
         }
 
+        DetailsSectionPrefix -> {
+            this.DetailsPage(
+                pageName = pageName ?: "Detail",
+                onBackClick = { navigation.popBackStack() }
+            )
+        }
+
 
     }
 }
@@ -823,5 +903,5 @@ fun NavHeader.ReusableHeader(
 @Composable
 fun PreviewElement(){
     val header: NavHeader = NavHeader()
-    header.TugasPage()
+    header.DetailsPage()
 }

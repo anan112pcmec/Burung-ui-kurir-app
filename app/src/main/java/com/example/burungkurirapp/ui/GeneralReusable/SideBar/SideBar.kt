@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.image.NotFoundIcons
 import com.example.burungkurirapp.ui.routes.RoutesProps
 import com.example.burungkurirapp.ui.section.HomeSectionRouting
 
@@ -50,7 +51,7 @@ fun SideBar.Element(
     val navItems: MutableList<SidebarNavItem> = mutableListOf()
 
     RoutesList.forEach { it ->
-        navItems.add(SidebarNavItem(it.name.lowercase(), it.name.uppercase(), it.Icon, onclick = fun(){RoutingElement.navigate(it.Path)}))
+        navItems.add(SidebarNavItem(it.name.lowercase(), it.name.uppercase(), it.Icon?: NotFoundIcons, onclick = fun(){RoutingElement.navigate(it.Path)}))
     }
 
     Column(

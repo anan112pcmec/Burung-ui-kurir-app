@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.LocalUiFlowState
 import com.example.burungkurirapp.ui.section.rememberUiFlowState
 import java.text.NumberFormat
@@ -60,7 +61,6 @@ fun HistoricalBidPage(
     onModeFilterChange: (String) -> Unit = {},
     onDeepFilterClick: () -> Unit = {}
 ) {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
         val state = LocalUiFlowState.current
 
         var selectedSort by remember { mutableStateOf("Terbaru") }
@@ -266,21 +266,21 @@ fun HistoricalBidPage(
                     ) { bidData ->
                         HistoricalBidCardItem(
                             data = bidData,
-                            onCardClick = { bidId ->
-                                state.navController.navigate("/details/bid/$bidId")
+                            onCardClick = {
+                                state.navController.navigate("$DetailsSectionPrefix/Bid")
                             }
                         )
                     }
                 }
             }
         }
-    }
+
 }
 
 @Composable
 fun HistoricalBidCardItem(
     data: HistoricalBidItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     val rupiahFormat = remember { NumberFormat.getCurrencyInstance(Locale("id", "ID")) }
 
@@ -290,7 +290,7 @@ fun HistoricalBidCardItem(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(

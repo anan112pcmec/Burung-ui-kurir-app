@@ -445,7 +445,6 @@ private fun PrevDetailsRekeningPage() {
     val sampleData = RekeningKurir(
         Id = 1L,
         IdKurir = 10L,
-        Kurir = null,
         NamaBank = "Bank Central Asia (BCA)",
         NomorRekening = "8830192831",
         PemilikRekening = "Budi Santoso",

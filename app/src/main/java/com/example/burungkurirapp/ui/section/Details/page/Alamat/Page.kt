@@ -34,14 +34,18 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.utsman.osmandcompose.OpenStreetMap
+import com.utsman.osmandcompose.rememberCameraState
+import org.osmdroid.util.GeoPoint
 
 @Composable
 fun DetailsAlamatPage(data: AlamatKurir) {
-    val LokasiAlamat = LatLng(data.Latitude, data.Longitude)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LokasiAlamat, 15f)
-    }
+//    val context = androidx.ui.platform.LocalContext.current // Atau androidx.compose.ui.platform.LocalContext.current
 
+    val lokasiAlamat = LatLng(data.Latitude, data.Longitude)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(lokasiAlamat, 15f)
+    }
     val isPreview = LocalInspectionMode.current
 
     Column(
@@ -128,7 +132,7 @@ fun DetailsAlamatPage(data: AlamatKurir) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Google Maps Placeholder\nLat: ${data.Latitude}, Lng: ${data.Longitude}",
+                        text = "Maps Placeholder\nLat: ${data.Latitude}, Lng: ${data.Longitude}",
                         textAlign = TextAlign.Center,
                         color = Zinc400,
                         fontFamily = FontFamily.SansSerif,
@@ -143,6 +147,7 @@ fun DetailsAlamatPage(data: AlamatKurir) {
                         .clip(RoundedCornerShape(8.dp)),
                     cameraPositionState = cameraPositionState
                 )
+
             }
         }
 

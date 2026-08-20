@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.LocalUiFlowState
 import com.example.burungkurirapp.ui.section.rememberUiFlowState
 
@@ -57,7 +58,6 @@ fun HistoricalAlamatPage(
     onSearchQueryChange: (String) -> Unit = {},
     onDateFilterClick: () -> Unit = {}
 ) {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
         val state = LocalUiFlowState.current
         var searchQuery by remember { mutableStateOf("") }
 
@@ -247,21 +247,20 @@ fun HistoricalAlamatPage(
                     ) { alamatItem ->
                         HistoricalAlamatCardItem(
                             data = alamatItem,
-                            onCardClick = { alamatId ->
-                                state?.navController?.navigate("/details/historical-alamat/$alamatId")
+                            onCardClick = {
+                                state.navController.navigate("$DetailsSectionPrefix/Alamat")
                             }
                         )
                     }
                 }
             }
         }
-    }
 }
 
 @Composable
 fun HistoricalAlamatCardItem(
     data: HistoricalAlamatItem,
-    onCardClick: (Long) -> Unit
+    onCardClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -269,7 +268,7 @@ fun HistoricalAlamatCardItem(
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
             .border(BorderStroke(1.dp, Zinc200), RoundedCornerShape(8.dp))
-            .clickable { onCardClick(data.id) }
+            .clickable { onCardClick() }
             .padding(14.dp)
     ) {
         Column(
