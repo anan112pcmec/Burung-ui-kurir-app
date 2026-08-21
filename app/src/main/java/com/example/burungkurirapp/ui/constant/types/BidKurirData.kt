@@ -17,7 +17,4 @@ data class BidKurirData(
     val Selesai: String,
     val CreatedAt: String,
     val UpdatedAt: String,
-
-    val ListPengiriman: List<Pengiriman>?,
-    val ListPengirimanEks: List<PengirimanEks>?
 )

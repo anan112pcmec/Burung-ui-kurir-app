@@ -5,9 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Info
@@ -24,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.burungkurirapp.ui.constant.enum.StatusPengiriman
+import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanProps
 
 // Skema Warna: Teal, Slate, Zinc, White
@@ -49,10 +47,8 @@ fun WaitingUi(
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+            .wrapContentSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // 1. Lokasi Penjemputan (Gudang/Seller)
@@ -324,7 +320,7 @@ fun WaitingUiPreview() {
         JenisPengiriman = "Non-Ekspres",
         JarakTempuh = "8.5 km",
         KurirPaid = 35000L,
-        Status = StatusPengiriman.WAITING
+        Status = STatusPengiriman.WAITING
     )
 
     MaterialTheme {

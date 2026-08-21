@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PhonelinkLock
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
+import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
@@ -55,13 +56,15 @@ import com.example.burungkurirapp.ui.section.History.HistoricalBidPage
 import com.example.burungkurirapp.ui.section.Home.page.Alamat.AlamatPage
 import com.example.burungkurirapp.ui.section.Home.page.DokumenInformasi.DokumenInformasiPage
 import com.example.burungkurirapp.ui.section.Home.page.DokumenKendaraan.DokumenKendaraanPage
-import com.example.burungkurirapp.ui.section.Home.page.Home.DaftarBidPage
 import com.example.burungkurirapp.ui.section.Home.page.Home.HomePage
+import com.example.burungkurirapp.ui.section.Home.page.Home.TugasDaftarBidPage
 import com.example.burungkurirapp.ui.section.Home.page.Privasi.PrivasiPage
 import com.example.burungkurirapp.ui.section.Home.page.Profile.ProfilePage
 import com.example.burungkurirapp.ui.section.Home.page.Rekening.RekeningPage
 import com.example.burungkurirapp.ui.section.Landing.page.LandingPagePage
 import com.example.burungkurirapp.ui.section.Home.page.Overview.OverviewPage
+import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanPage
+import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanProps
 
 var LandingSectionRouting: List<RoutesProps> = listOf(
     RoutesProps(
@@ -148,7 +151,45 @@ val TugasSectionRouting: List<RoutesProps> = listOf(
         name = "Daftar Bid",
         Path = "$TugasSectionPrefix/Daftar-Bid",
         Icon = Icons.Default.QueryStats,
-        Component = listOf({ DaftarBidPage() })
+        Component = listOf({ TugasDaftarBidPage() })
+    ),
+    RoutesProps(
+        name = "Pengiriman",
+        Path = "$TugasSectionPrefix/Pengiriman",
+        Icon = null,
+        Component = listOf({ TugasPengirimanPage(TugasPengirimanProps(
+            Id = 1001L,
+            IdTransaksi = 50021L,
+            IdSeller = 301L,
+            NamaSeller = "Toko Berkah Jaya",
+            IdPengguna = 102,
+            NamaPengguna = "Budiansyah",
+            IdAlamatGudang = 101L,
+            NamaAlamatGudang = "Gudang Utama Karawang",
+            LongAlamatGudang = 107.3023,
+            LatAlamatGudang = -6.3155,
+            IdAlamatPengguna = 205L,
+            NamaAlamatPengguna = "Perumahan Teluk Jambe Blok A No. 12",
+            LongAlamatPengguna = 107.3112,
+            LatAlamatPengguna = -6.3201,
+            IdBarangInduk = 9988L,
+            NamaBarangInduk = "Paket Elektronik - Speaker Bluetooth",
+            IdKategoriBarang = 12L,
+            NamaKategoriBarang = "Elektronik",
+            UrlFotoKategoriBarang = listOf(
+                "https://example.com/images/speaker1.jpg",
+                "https://example.com/images/speaker2.jpg"
+            ),
+            IdKurir = 88L,
+            KodeOrderSistem = "ORD-2026-0820-001",
+            Catatan = "Harap hubungi penerima sebelum sampai di lokasi.",
+            BeratBarang = 1500,
+            KendaraanRequired = "Motor",
+            JenisPengiriman = "Instant",
+            JarakTempuh = "4.5 km",
+            KurirPaid = 15000L,
+            Status = STatusPengiriman.SAMPAI
+        )) })
     )
 )
 
@@ -326,27 +367,7 @@ val DetailsSectionRouting: List<RoutesProps> = listOf(
                 Selesai = "2026-06-01T18:00:00Z",
                 CreatedAt = "2026-06-01T07:00:00Z",
                 UpdatedAt = "2026-06-01T07:00:00Z",
-                ListPengiriman = listOf(
-                    Pengiriman(
-                        Id = 501,
-                        IdTransaksi = 9001,
-                        IdSeller = 202,
-                        IdAlamatGudang = 301,
-                        IdAlamatPengguna = 401,
-                        IdKurir = 101,
-                        BeratBarang = 5,
-                        KendaraanRequired = "Motor",
-                        JenisPengiriman = "SameDay",
-                        JarakTempuh = "4.5 km",
-                        KurirPaid = "15000",
-                        Status = "Pending",
-                        CreatedAt = "2026-06-01T07:30:00Z",
-                        Transaksi = null,       // Bisa diisi dummy Transaksi jika ada class-nya
-                        AlamatGudang = null,    // Bisa diisi dummy AlamatGudang jika ada class-nya
-                        AlamatPengguna = null   // Bisa diisi dummy AlamatPengguna jika ada class-nya
-                    )
-                ),
-                ListPengirimanEks = null // Karena IsEkspedisi false, bagian ekspedisi dikosongkan
+
             )
         ) })
     ),

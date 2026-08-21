@@ -29,10 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.burungkurirapp.ui.constant.color.*
+import com.example.burungkurirapp.ui.constant.types.AlamatGudang
 import com.example.burungkurirapp.ui.constant.types.AlamatPengguna
 import com.example.burungkurirapp.ui.constant.types.BidKurirData
 import com.example.burungkurirapp.ui.constant.types.Pengiriman
 import com.example.burungkurirapp.ui.constant.types.PengirimanEks
+import com.example.burungkurirapp.ui.constant.types.Transaksi
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -44,6 +46,192 @@ fun DetailsBidPage(data: BidKurirData) {
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(lokasiAlamat, 15f)
     }
+
+    val ListPengirimanEks: List<PengirimanEks>? = null
+    val ListPengiriman: List<Pengiriman> = listOf(
+        Pengiriman(
+            Id = 1,
+            IdTransaksi = 101,
+            IdSeller = 201,
+            IdAlamatGudang = 301,
+            IdAlamatPengguna = 401,
+            IdKurir = 501,
+            BeratBarang = 1200,
+            KendaraanRequired = "Motor",
+            JenisPengiriman = "Instant",
+            JarakTempuh = "4.5 km",
+            KurirPaid = "15000",
+            Status = "WAITING",
+            CreatedAt = "2026-08-21 08:30:00",
+            AlamatGudang = AlamatGudang(
+                Id = 301,
+                IdSeller = 201,
+                PanggilanAlamat = "Gudang Utama",
+                NomorTelephone = "081234567890",
+                NamaAlamat = "Jl. Sudirman No. 10",
+                Provinsi = "DKI Jakarta",
+                Kota = "Jakarta Selatan",
+                KodePos = "12190",
+                KodeNegara = "ID",
+                Deskripsi = "Dekat gedung oranye",
+                Longitude = 106.816666,
+                Latitude = -6.200000,
+                CreatedAt = "2026-01-01 00:00:00",
+                UpdatedAt = "2026-01-01 00:00:00"
+            ),
+            AlamatPengguna = AlamatPengguna(
+                Id = 401,
+                IdPengguna = 901,
+                PanggilanAlamat = "Rumah",
+                NomorTelephone = "089876543210",
+                NamaAlamat = "Jl. Gatot Subroto No. 45",
+                Provinsi = "DKI Jakarta",
+                Kota = "Jakarta Selatan",
+                KodeNegara = "ID",
+                KodePos = "12930",
+                Deskripsi = "Pagar hitam",
+                Longitude = 106.820000,
+                Latitude = -6.210000,
+                CreatedAt = "2026-01-01 00:00:00",
+                UpdatedAt = "2026-01-01 00:00:00"
+            ),
+            Transaksi = Transaksi(
+                id = 101L,
+                idPengguna = 901L,
+                idSeller = 201,
+                idBarangInduk = 5001L,
+                idKategoriBarang = 10L,
+                idAlamatPengguna = 401L,
+                gambarUrlKategoriBarang = listOf("https://example.com/img1.jpg"),
+                alamatPengguna = AlamatPengguna(
+                    Id = 401, IdPengguna = 901, PanggilanAlamat = "Rumah", NomorTelephone = "089876543210",
+                    NamaAlamat = "Jl. Gatot Subroto No. 45", Provinsi = "DKI Jakarta", Kota = "Jakarta Selatan",
+                    KodeNegara = "ID", KodePos = "12930", Deskripsi = "Pagar hitam", Longitude = 106.820000,
+                    Latitude = -6.210000, CreatedAt = "2026-01-01 00:00:00", UpdatedAt = "2026-01-01 00:00:00"
+                ),
+                idAlamatGudang = 301L,
+                alamatGudang = AlamatGudang(
+                    Id = 301, IdSeller = 201, PanggilanAlamat = "Gudang Utama", NomorTelephone = "081234567890",
+                    NamaAlamat = "Jl. Sudirman No. 10", Provinsi = "DKI Jakarta", Kota = "Jakarta Selatan",
+                    KodePos = "12190", KodeNegara = "ID", Deskripsi = "Dekat gedung oranye", Longitude = 106.816666,
+                    Latitude = -6.200000, CreatedAt = "2026-01-01 00:00:00", UpdatedAt = "2026-01-01 00:00:00"
+                ),
+                idAlamatEkspedisi = 1L,
+                idPembayaran = 10L,
+                idDiskon = null,
+                kendaraanPengiriman = "Motor",
+                jenisPengiriman = "Instant",
+                jarakTempuh = "4.5 km",
+                beratTotalKg = 1,
+                kodeOrderSistem = "ORD-2026-0821-001",
+                kodeResiEkspedisi = "RESI12345",
+                status = "WAITING",
+                dibatalkanOleh = "",
+                catatan = "Hati-hati barang pecah belah",
+                kuantitasBarang = 1,
+                isEkspedisi = false,
+                sellerPaid = 50000L,
+                kurirPaid = 15000L,
+                sistemPaid = 5000L,
+                ekspedisiPaid = 0L,
+                total = 70000L,
+                reviewed = false,
+                createdAt = "2026-08-21 08:00:00",
+                updatedAt = "2026-08-21 08:00:00"
+            )
+        ),
+        Pengiriman(
+            Id = 2,
+            IdTransaksi = 102,
+            IdSeller = 202,
+            IdAlamatGudang = 302,
+            IdAlamatPengguna = 402,
+            IdKurir = 502,
+            BeratBarang = 500,
+            KendaraanRequired = "Motor",
+            JenisPengiriman = "Sameday",
+            JarakTempuh = "8.2 km",
+            KurirPaid = "22000",
+            Status = "PICKED_UP",
+            CreatedAt = "2026-08-21 09:00:00",
+            AlamatGudang = AlamatGudang(
+                Id = 302,
+                IdSeller = 202,
+                PanggilanAlamat = "Hub Bandung",
+                NomorTelephone = "081298765432",
+                NamaAlamat = "Jl. Asia Afrika No. 50",
+                Provinsi = "Jawa Barat",
+                Kota = "Bandung",
+                KodePos = "40111",
+                KodeNegara = "ID",
+                Deskripsi = "Seberang hotel",
+                Longitude = 107.609810,
+                Latitude = -6.914744,
+                CreatedAt = "2026-01-01 00:00:00",
+                UpdatedAt = "2026-01-01 00:00:00"
+            ),
+            AlamatPengguna = AlamatPengguna(
+                Id = 402,
+                IdPengguna = 902,
+                PanggilanAlamat = "Kantor",
+                NomorTelephone = "085612345678",
+                NamaAlamat = "Jl. Dago No. 100",
+                Provinsi = "Jawa Barat",
+                Kota = "Bandung",
+                KodeNegara = "ID",
+                KodePos = "40135",
+                Deskripsi = "Lantai 3",
+                Longitude = 107.610000,
+                Latitude = -6.920000,
+                CreatedAt = "2026-01-01 00:00:00",
+                UpdatedAt = "2026-01-01 00:00:00"
+            ),
+            Transaksi = Transaksi(
+                id = 102L,
+                idPengguna = 902L,
+                idSeller = 202,
+                idBarangInduk = 5002L,
+                idKategoriBarang = 11L,
+                idAlamatPengguna = 402L,
+                gambarUrlKategoriBarang = listOf("https://example.com/img2.jpg"),
+                alamatPengguna = AlamatPengguna(
+                    Id = 402, IdPengguna = 902, PanggilanAlamat = "Kantor", NomorTelephone = "085612345678",
+                    NamaAlamat = "Jl. Dago No. 100", Provinsi = "Jawa Barat", Kota = "Bandung",
+                    KodeNegara = "ID", KodePos = "40135", Deskripsi = "Lantai 3", Longitude = 107.610000,
+                    Latitude = -6.920000, CreatedAt = "2026-01-01 00:00:00", UpdatedAt = "2026-01-01 00:00:00"
+                ),
+                idAlamatGudang = 302L,
+                alamatGudang = AlamatGudang(
+                    Id = 302, IdSeller = 202, PanggilanAlamat = "Hub Bandung", NomorTelephone = "081298765432",
+                    NamaAlamat = "Jl. Asia Afrika No. 50", Provinsi = "Jawa Barat", Kota = "Bandung",
+                    KodePos = "40111", KodeNegara = "ID", Deskripsi = "Seberang hotel", Longitude = 107.609810,
+                    Latitude = -6.914744, CreatedAt = "2026-01-01 00:00:00", UpdatedAt = "2026-01-01 00:00:00"
+                ),
+                idAlamatEkspedisi = 1L,
+                idPembayaran = 11L,
+                idDiskon = 2L,
+                kendaraanPengiriman = "Motor",
+                jenisPengiriman = "Sameday",
+                jarakTempuh = "8.2 km",
+                beratTotalKg = 1,
+                kodeOrderSistem = "ORD-2026-0821-002",
+                kodeResiEkspedisi = "RESI67890",
+                status = "PICKED_UP",
+                dibatalkanOleh = "",
+                catatan = "Langsung kirim",
+                kuantitasBarang = 2,
+                isEkspedisi = false,
+                sellerPaid = 40000L,
+                kurirPaid = 22000L,
+                sistemPaid = 4000L,
+                ekspedisiPaid = 0L,
+                total = 66000L,
+                reviewed = false,
+                createdAt = "2026-08-21 08:30:00",
+                updatedAt = "2026-08-21 08:30:00"
+            )
+        )
+    )
 
     val isPreview = LocalInspectionMode.current
 
@@ -302,9 +490,9 @@ fun DetailsBidPage(data: BidKurirData) {
                 )
 
                 val count = if (data.IsEkspedisi) {
-                    data.ListPengirimanEks?.size ?: 0
+                    ListPengirimanEks?.size ?: 0
                 } else {
-                    data.ListPengiriman?.size ?: 0
+                    ListPengiriman?.size ?: 0
                 }
 
                 Box(
@@ -326,7 +514,7 @@ fun DetailsBidPage(data: BidKurirData) {
 
         // ─── 5. LIST ITEM PENGIRIMAN (KONDISIONAL) ───
         if (data.IsEkspedisi) {
-            val listEks = data.ListPengirimanEks
+            val listEks = ListPengirimanEks
             if (listEks.isNullOrEmpty()) {
                 item { EmptyPengirimanCard() }
             } else {
@@ -335,7 +523,7 @@ fun DetailsBidPage(data: BidKurirData) {
                 }
             }
         } else {
-            val listReg = data.ListPengiriman
+            val listReg = ListPengiriman
             if (listReg.isNullOrEmpty()) {
                 item { EmptyPengirimanCard() }
             } else {
@@ -752,8 +940,6 @@ fun PrevDetailsBidPage() {
         Selesai = "17:00",
         CreatedAt = "18-08-2026",
         UpdatedAt = "18-08-2026",
-        ListPengiriman = dummyListPengiriman,
-        ListPengirimanEks = null
     )
     DetailsBidPage(dummyData)
 }

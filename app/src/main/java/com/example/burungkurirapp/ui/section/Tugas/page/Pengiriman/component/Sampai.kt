@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.burungkurirapp.ui.constant.enum.StatusPengiriman
+import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanProps
 
 // Skema Warna: Teal, Slate, Zinc, White
@@ -38,14 +38,11 @@ fun SampaiUi(
     data: TugasPengirimanProps,
     buktiFotoUrl: String? = null,
     onFinishClick: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+        modifier = Modifier
+            .wrapContentSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -245,7 +242,7 @@ fun SampaiUiPreview() {
         JenisPengiriman = "Non-Ekspres",
         JarakTempuh = "8.5 km",
         KurirPaid = 35000L,
-        Status = StatusPengiriman.SAMPAI
+        Status = STatusPengiriman.SAMPAI
     )
 
     MaterialTheme {

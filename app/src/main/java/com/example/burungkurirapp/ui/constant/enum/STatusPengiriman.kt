@@ -1,6 +1,6 @@
 package com.example.burungkurirapp.ui.constant.enum
 
-enum class StatusPengiriman(val value: String) {
+enum class STatusPengiriman(val value: String) {
     WAITING("Waiting"),
     PICKED_UP("Picked Up"),
     DI_PERJALANAN("Diperjalanan"),

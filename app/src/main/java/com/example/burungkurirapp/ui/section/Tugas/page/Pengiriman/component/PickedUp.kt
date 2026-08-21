@@ -29,7 +29,7 @@ import com.example.burungkurirapp.ui.constant.color.Red50
 import com.example.burungkurirapp.ui.constant.color.Red500
 import com.example.burungkurirapp.ui.constant.color.Red700
 import com.example.burungkurirapp.ui.constant.color.Teal600
-import com.example.burungkurirapp.ui.constant.enum.StatusPengiriman
+import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanProps
 
 // Palet Fondasi Slate & Zinc
@@ -42,14 +42,11 @@ private val ZincCard = Color(0xFFF8FAFC)          // Slate/Zinc 50
 @Composable
 fun PickedUpUi(
     data: TugasPengirimanProps,
-    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+        modifier = Modifier
+            .wrapContentSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // 1. Banner Status Picked Up (Nuansa Soft Red sebagai penanda status)
@@ -233,7 +230,7 @@ fun PickedUpUiPreview() {
         JenisPengiriman = "Non-Ekspres",
         JarakTempuh = "8.5 km",
         KurirPaid = 35000L,
-        Status = StatusPengiriman.PICKED_UP
+        Status = STatusPengiriman.PICKED_UP
     )
 
     MaterialTheme {

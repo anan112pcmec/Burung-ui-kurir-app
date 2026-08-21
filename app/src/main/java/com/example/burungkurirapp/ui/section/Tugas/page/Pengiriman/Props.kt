@@ -1,6 +1,6 @@
 package com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman
 
-import com.example.burungkurirapp.ui.constant.enum.StatusPengiriman
+import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.constant.types.Pengiriman
 
 data class TugasPengirimanProps(
@@ -31,7 +31,7 @@ data class TugasPengirimanProps(
     val JenisPengiriman: String,
     val JarakTempuh: String,
     val KurirPaid: Long,
-    val Status: StatusPengiriman,
+    val Status: STatusPengiriman,
 
 
 )
