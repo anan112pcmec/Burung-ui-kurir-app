@@ -37,7 +37,9 @@ import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc50
 import com.example.burungkurirapp.ui.constant.color.Zinc400
 import com.example.burungkurirapp.ui.constant.color.Zinc500
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.Home.page.Rekening.RekeningItem
+import com.example.burungkurirapp.ui.section.LocalUiFlowState
 
 // ─── CARD SINGLE REKENING UTAMA (VERSI MINIMALIS & SOFT) ───
 @Composable
@@ -47,6 +49,7 @@ fun SingleRekeningCard(
     onDelete: () -> Unit,
     onCopy: () -> Unit = {}
 ) {
+    val state = LocalUiFlowState.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -165,7 +168,10 @@ fun SingleRekeningCard(
 
         // 2. Bagian Tengah: Nomor Rekening & Tombol Salin Cepat
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .clickable(
+                    onClick = {state.navController.navigate("$DetailsSectionPrefix/Rekening")}
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {

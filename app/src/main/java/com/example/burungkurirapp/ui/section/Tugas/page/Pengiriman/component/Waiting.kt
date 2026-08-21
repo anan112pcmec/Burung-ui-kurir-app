@@ -40,7 +40,7 @@ fun WaitingUi(
     data: TugasPengirimanProps,
     onNavigateToWarehouse: (lat: Double, long: Double) -> Unit,
     onTakePhotoClick: () -> Unit,
-    onConfirmPickedUp: (photoUrl: String) -> Unit,
+    onConfirmPickedUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var capturedPhotoUrl by remember { mutableStateOf<String?>(null) }
@@ -265,11 +265,12 @@ fun WaitingUi(
         // 5. Tombol Eksekusi Aksi Picked Up
         Button(
             onClick = {
-                capturedPhotoUrl?.let { photo ->
-                    onConfirmPickedUp(photo)
-                }
+                onConfirmPickedUp()
+//                capturedPhotoUrl?.let { photo ->
+//                    onConfirmPickedUp(photo)
+//                }
             },
-            enabled = capturedPhotoUrl != null,
+//            enabled = capturedPhotoUrl != null,
             colors = ButtonDefaults.buttonColors(
                 containerColor = TealPrimary,
                 contentColor = Color.White,

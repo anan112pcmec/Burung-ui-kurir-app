@@ -268,9 +268,15 @@ fun TugasPengirimanPage(data: TugasPengirimanProps) {
 
         // Catatan: Spacer weight(1f) dihapus agar tidak error di dalam verticalScroll
 
+        // Catatan: Spacer weight(1f) dihapus agar tidak error di dalam verticalScroll
+
         when(statusPengiriman.value){
-            STatusPengiriman.WAITING -> WaitingUi(data, onNavigateToWarehouse = { _, _ -> }, onTakePhotoClick = { }, onConfirmPickedUp = { })
-            STatusPengiriman.PICKED_UP -> PickedUpUi(data);
+            STatusPengiriman.WAITING -> WaitingUi(data, onNavigateToWarehouse = { _, _ -> }, onTakePhotoClick = { }, onConfirmPickedUp = {
+                statusPengiriman.value = STatusPengiriman.PICKED_UP
+            })
+            STatusPengiriman.PICKED_UP -> PickedUpUi(data, {
+                statusPengiriman.value = STatusPengiriman.DI_PERJALANAN
+            });
             STatusPengiriman.DI_PERJALANAN -> DiperjalananUi(data,   historisJejak = listOf(
                 JejakPengirimanItem(1, "14:20", "Sedang berteduh karena hujan deras di daerah Tebet"),
                 JejakPengirimanItem(2, "13:45", "Terjebak macet di persimpangan Kuningan")
@@ -278,7 +284,9 @@ fun TugasPengirimanPage(data: TugasPengirimanProps) {
                 onNavigateToRecipient = { _, _ -> },
                 onSendUpdateJejak = { _, _ -> },
                 onTakePhotoDelivered = { },
-                onConfirmDelivered = { }
+                onConfirmDelivered = {
+                    statusPengiriman.value = STatusPengiriman.SAMPAI
+                }
             )
 
             STatusPengiriman.SAMPAI -> SampaiUi(data, buktiFotoUrl = "https://via.placeholder.com/300",

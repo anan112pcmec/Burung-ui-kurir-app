@@ -141,12 +141,30 @@ fun DetailsAlamatPage(data: AlamatKurir) {
                     )
                 }
             } else {
-                GoogleMap(
+//                GoogleMap(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .clip(RoundedCornerShape(8.dp)),
+//                    cameraPositionState = cameraPositionState
+//                )
+
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(8.dp)),
-                    cameraPositionState = cameraPositionState
-                )
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Zinc100)
+                        .border(1.dp, Zinc300, RoundedCornerShape(8.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Maps Placeholder\nLat: ${data.Latitude}, Lng: ${data.Longitude}",
+                        textAlign = TextAlign.Center,
+                        color = Zinc400,
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp
+                    )
+                }
 
             }
         }

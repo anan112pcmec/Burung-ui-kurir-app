@@ -49,7 +49,7 @@ fun SideBar.Element(
     onItemSelect: (String) -> Unit = {}
 ) {
     val navItems: MutableList<SidebarNavItem> = mutableListOf()
-
+    RoutesList.filter { it.Icon != null }
     RoutesList.forEach { it ->
         navItems.add(SidebarNavItem(it.name.lowercase(), it.name.uppercase(), it.Icon?: NotFoundIcons, onclick = fun(){RoutingElement.navigate(it.Path)}))
     }

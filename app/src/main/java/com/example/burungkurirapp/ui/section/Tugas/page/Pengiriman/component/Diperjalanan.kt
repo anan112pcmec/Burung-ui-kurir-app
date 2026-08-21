@@ -53,7 +53,7 @@ fun DiperjalananUi(
     onNavigateToRecipient: (lat: Double, long: Double) -> Unit,
     onSendUpdateJejak: (keterangan: String, photoUrl: String?) -> Unit,
     onTakePhotoDelivered: () -> Unit,
-    onConfirmDelivered: (photoUrl: String) -> Unit,
+    onConfirmDelivered: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     // State lokal form update jejak (opsional)
@@ -354,11 +354,12 @@ fun DiperjalananUi(
         // 6. Tombol Eksekusi Status Sampai
         Button(
             onClick = {
-                finalDeliveredPhotoUrl?.let { photo ->
-                    onConfirmDelivered(photo)
-                }
+//                finalDeliveredPhotoUrl?.let { photo ->
+//                    onConfirmDelivered(photo)
+//                }
+                onConfirmDelivered()
             },
-            enabled = finalDeliveredPhotoUrl != null,
+//            enabled = finalDeliveredPhotoUrl != null,
             colors = ButtonDefaults.buttonColors(
                 containerColor = TealPrimary,
                 contentColor = Color.White,

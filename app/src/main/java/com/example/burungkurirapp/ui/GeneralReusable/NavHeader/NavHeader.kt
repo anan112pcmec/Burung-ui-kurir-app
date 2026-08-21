@@ -60,6 +60,7 @@ import com.example.burungkurirapp.ui.constant.prefix.HomeSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.LandingSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.RiwayatSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.TugasSectionPrefix
+import com.example.burungkurirapp.ui.section.LocalUiFlowState
 
 // ─── COLOR PALETTE (Zinc, Slate, Monochromatic Accent) ───
 //Page ini diberkan nama HomePage tidak seragam dengan yang lain karna HomePage ini memicu bentrok
@@ -79,6 +80,7 @@ fun NavHeader.HomePage(
     onMailClick: () -> Unit = {},
     onRatingClick: () -> Unit = {}
 ) {
+    val state = LocalUiFlowState.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -203,7 +205,7 @@ fun NavHeader.HomePage(
 
                 // Surat / Mail Icon
                 IconButton (
-                    onClick = onMailClick,
+                    onClick = {state.navController.navigate("$HomeSectionPrefix/Pesan")},
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
@@ -217,7 +219,7 @@ fun NavHeader.HomePage(
                 // Bell / Notification Icon dengan Red Dot Indicator
                 Box(contentAlignment = Alignment.TopEnd) {
                     IconButton(
-                        onClick = onNotificationClick,
+                        onClick = {state.navController.navigate("$HomeSectionPrefix/Aktivitas")},
                         modifier = Modifier.size(36.dp)
                     ) {
                         Icon(

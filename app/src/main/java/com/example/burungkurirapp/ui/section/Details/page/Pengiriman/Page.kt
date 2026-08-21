@@ -17,6 +17,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -373,26 +374,43 @@ fun DetailsPengirimanPage(data: Pengiriman) {
                         )
                     }
                 } else {
-                    GoogleMap(
+//                    GoogleMap(
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .clip(RoundedCornerShape(8.dp)),
+//                        cameraPositionState = cameraPositionState
+//                    ) {
+//                        data.AlamatGudang?.let { gudang ->
+//                            Marker(
+//                                state = MarkerState(position = asalPos),
+//                                title = "Asal (Gudang)",
+//                                snippet = gudang.NamaAlamat
+//                            )
+//                        }
+//                        data.AlamatPengguna?.let { pengguna ->
+//                            Marker(
+//                                state = MarkerState(position = tujuanPos),
+//                                title = "Tujuan (Pengguna)",
+//                                snippet = pengguna.NamaAlamat
+//                            )
+//                        }
+//                    }
+                    Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(8.dp)),
-                        cameraPositionState = cameraPositionState
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Zinc100)
+                            .border(1.dp, Zinc300, RoundedCornerShape(8.dp)),
+                        contentAlignment = Alignment.Center
                     ) {
-                        data.AlamatGudang?.let { gudang ->
-                            Marker(
-                                state = MarkerState(position = asalPos),
-                                title = "Asal (Gudang)",
-                                snippet = gudang.NamaAlamat
-                            )
-                        }
-                        data.AlamatPengguna?.let { pengguna ->
-                            Marker(
-                                state = MarkerState(position = tujuanPos),
-                                title = "Tujuan (Pengguna)",
-                                snippet = pengguna.NamaAlamat
-                            )
-                        }
+                        Text(
+                            text = "Maps Placeholder\nLat: ${data.AlamatPengguna?.Latitude}, Lng: ${data.AlamatPengguna?.Longitude}",
+                            textAlign = TextAlign.Center,
+                            color = Zinc400,
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp
+                        )
                     }
                 }
             }

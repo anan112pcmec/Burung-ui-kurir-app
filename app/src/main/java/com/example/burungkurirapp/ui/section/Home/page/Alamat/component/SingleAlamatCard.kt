@@ -1,6 +1,7 @@
 package com.example.burungkurirapp.ui.section.Home.page.Alamat.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,9 @@ import com.example.burungkurirapp.ui.constant.color.Zinc200
 import com.example.burungkurirapp.ui.constant.color.Zinc50
 import com.example.burungkurirapp.ui.constant.color.Zinc500
 import com.example.burungkurirapp.ui.constant.color.Zinc600
+import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
 import com.example.burungkurirapp.ui.section.Home.page.Alamat.AlamatKurirItem
+import com.example.burungkurirapp.ui.section.LocalUiFlowState
 
 private val Rose600 = Color(0xFFE11D48)
 
@@ -46,6 +49,7 @@ fun SingleAlamatCard(
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
+    val state = LocalUiFlowState.current
     Surface(
         shape = RoundedCornerShape(8.dp),
         color = Color.White,
@@ -143,7 +147,12 @@ fun SingleAlamatCard(
             HorizontalDivider(color = Zinc100, thickness = 1.dp)
 
             // Informasi Detail Alamat
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(
+                modifier = Modifier.clickable(
+                    onClick = {state.navController.navigate("$DetailsSectionPrefix/Alamat")}
+                ),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 Text(
                     text = item.namaAlamat,
                     fontSize = 12.sp,

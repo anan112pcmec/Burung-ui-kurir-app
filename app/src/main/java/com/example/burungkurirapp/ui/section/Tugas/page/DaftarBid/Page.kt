@@ -80,7 +80,7 @@ private fun MetricItem(label: String, value: String) {
 
 @Composable
 fun TugasDaftarBidPage() {
-    CompositionLocalProvider(LocalUiFlowState provides rememberUiFlowState()) {
+
         val state = LocalUiFlowState.current
         val incomingOrders = remember {
             listOf(
@@ -282,7 +282,6 @@ fun TugasDaftarBidPage() {
                 AvailableOrderCard(order = order)
             }
         }
-    }
 }
 
 @Preview

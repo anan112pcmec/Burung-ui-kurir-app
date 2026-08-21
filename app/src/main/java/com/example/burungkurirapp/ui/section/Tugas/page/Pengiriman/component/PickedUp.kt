@@ -2,6 +2,7 @@ package com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -42,11 +43,17 @@ private val ZincCard = Color(0xFFF8FAFC)          // Slate/Zinc 50
 @Composable
 fun PickedUpUi(
     data: TugasPengirimanProps,
+    onClickEl: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .wrapContentSize()
-            .background(Color.White),
+            .background(Color.White)
+            .clickable(
+                onClick = {
+                    onClickEl()
+                }
+            ),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // 1. Banner Status Picked Up (Nuansa Soft Red sebagai penanda status)
@@ -234,6 +241,6 @@ fun PickedUpUiPreview() {
     )
 
     MaterialTheme {
-        PickedUpUi(data = mockData)
+        PickedUpUi(data = mockData, onClickEl = fun(){})
     }
 }

@@ -14,12 +14,10 @@ import androidx.compose.material.icons.filled.LocalOffer
 import androidx.compose.material.icons.filled.LocalShipping
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Login
-import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PhonelinkLock
 import androidx.compose.material.icons.filled.QueryStats
-import androidx.compose.material.icons.filled.Settings
 import com.example.burungkurirapp.ui.constant.enum.STatusPengiriman
 import com.example.burungkurirapp.ui.constant.prefix.AuthSectionPrefix
 import com.example.burungkurirapp.ui.constant.prefix.DetailsSectionPrefix
@@ -42,10 +40,11 @@ import com.example.burungkurirapp.ui.section.Details.page.Alamat.DetailsAlamatPa
 import com.example.burungkurirapp.ui.section.Details.page.Bid.DetailsBidPage
 import com.example.burungkurirapp.ui.section.Details.page.InformasiKendaraanKurir.DetailsInformasiKendaraanKurirPage
 import com.example.burungkurirapp.ui.section.Details.page.InformasiKurir.DetailsInformasiKurirPage
+import com.example.burungkurirapp.ui.section.Details.page.Notification.DetailsNotificationPage
 import com.example.burungkurirapp.ui.section.Details.page.Pengiriman.DetailsPengirimanPage
 import com.example.burungkurirapp.ui.section.Details.page.Rekening.DetailsRekeningPage
-import com.example.burungkurirapp.ui.section.Historical.page.Aktivitas.HistoricalAktivitasPage
 import com.example.burungkurirapp.ui.section.Historical.page.Alamat.HistoricalAlamatPage
+import com.example.burungkurirapp.ui.section.Historical.page.Archive.HistoricalArchivePage
 import com.example.burungkurirapp.ui.section.Historical.page.Informasi.HistoricalInformasiPage
 import com.example.burungkurirapp.ui.section.Historical.page.Option.HistoricalOptionPage
 import com.example.burungkurirapp.ui.section.Historical.page.Option.OptionProps
@@ -53,6 +52,7 @@ import com.example.burungkurirapp.ui.section.Historical.page.Pengiriman.Historic
 import com.example.burungkurirapp.ui.section.Historical.page.Profile.HistoricalProfilePage
 import com.example.burungkurirapp.ui.section.Historical.page.Rekening.HistoricalRekeningPage
 import com.example.burungkurirapp.ui.section.History.HistoricalBidPage
+import com.example.burungkurirapp.ui.section.Home.page.Activity.HomeAktivitasPage
 import com.example.burungkurirapp.ui.section.Home.page.Alamat.AlamatPage
 import com.example.burungkurirapp.ui.section.Home.page.DokumenInformasi.DokumenInformasiPage
 import com.example.burungkurirapp.ui.section.Home.page.DokumenKendaraan.DokumenKendaraanPage
@@ -63,6 +63,7 @@ import com.example.burungkurirapp.ui.section.Home.page.Profile.ProfilePage
 import com.example.burungkurirapp.ui.section.Home.page.Rekening.RekeningPage
 import com.example.burungkurirapp.ui.section.Landing.page.LandingPagePage
 import com.example.burungkurirapp.ui.section.Home.page.Overview.OverviewPage
+import com.example.burungkurirapp.ui.section.Home.page.Pesan.HomePesanPage
 import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanPage
 import com.example.burungkurirapp.ui.section.Tugas.page.Pengiriman.TugasPengirimanProps
 
@@ -100,6 +101,76 @@ val HomeSectionRouting: List<RoutesProps> = listOf(
         Icon = Icons.Default.Home,
         Component = listOf({
             HomePage()
+        })
+    ),
+    RoutesProps(
+        name = "Pesan",
+        Path = "$HomeSectionPrefix/Pesan",
+        Icon = null,
+        Component = listOf({
+            HomePesanPage(listOf(
+                NotificationKurir(
+                    IdKurir = 1,
+                    Pengirim = "Admin Operasional",
+                    Judul = "Jadwal Shift Baru",
+                    Pesan = "Mohon periksa kembali jadwal shift pengiriman Anda untuk minggu depan di menu profil.",
+                    Pop = 1.0f,
+                    Archive = false,
+                    Inbox = true,
+                    Activity = false,
+                    CreatedAt = "09:30",
+                    ExpiredAt = "2026-12-31",
+                    Data = NotificationKurir.DataInfo(mapOf(), "")
+                ),
+                NotificationKurir(
+                    IdKurir = 2,
+                    Pengirim = "Pusat Bantuan",
+                    Judul = "Verifikasi Data Berhasil",
+                    Pesan = "Akun kurir Anda telah terverifikasi penuh oleh sistem pusat.",
+                    Pop = 0.5f,
+                    Archive = false,
+                    Inbox = true,
+                    Activity = true,
+                    CreatedAt = "Kemarin",
+                    ExpiredAt = "2026-12-31",
+                    Data = NotificationKurir.DataInfo(mapOf(), "")
+                )
+            ))
+        })
+    ),
+    RoutesProps(
+        name = "Aktivitas",
+        Path = "$HomeSectionPrefix/Aktivitas",
+        Icon = null,
+        Component = listOf({
+            HomeAktivitasPage(listOf(
+                NotificationKurir(
+                    IdKurir = 1,
+                    Pengirim = "Admin Operasional",
+                    Judul = "Jadwal Shift Baru",
+                    Pesan = "Mohon periksa kembali jadwal shift pengiriman Anda untuk minggu depan di menu profil.",
+                    Pop = 1.0f,
+                    Archive = false,
+                    Inbox = true,
+                    Activity = true,
+                    CreatedAt = "09:30",
+                    ExpiredAt = "2026-12-31",
+                    Data = NotificationKurir.DataInfo(mapOf(), "")
+                ),
+                NotificationKurir(
+                    IdKurir = 2,
+                    Pengirim = "Pusat Bantuan",
+                    Judul = "Verifikasi Data Berhasil",
+                    Pesan = "Akun kurir Anda telah terverifikasi penuh oleh sistem pusat.",
+                    Pop = 0.5f,
+                    Archive = false,
+                    Inbox = true,
+                    Activity = true,
+                    CreatedAt = "Kemarin",
+                    ExpiredAt = "2026-12-31",
+                    Data = NotificationKurir.DataInfo(mapOf(), "")
+                )
+            ))
         })
     ),
     RoutesProps(
@@ -188,7 +259,7 @@ val TugasSectionRouting: List<RoutesProps> = listOf(
             JenisPengiriman = "Instant",
             JarakTempuh = "4.5 km",
             KurirPaid = 15000L,
-            Status = STatusPengiriman.SAMPAI
+            Status = STatusPengiriman.WAITING
         )) })
     )
 )
@@ -262,40 +333,142 @@ val RiwayatSectionRouting: List<RoutesProps> = listOf(
         name = "Aktivitas",
         Path = "$RiwayatSectionPrefix/Aktivitas",
         Icon = Icons.Default.History,
-        Component = listOf({ HistoricalAktivitasPage( listOf(
-            NotificationKurir(
-                IdKurir = 1,
-                Pengirim = "Logistik Hub Jakarta",
-                Judul = "Paket Telah Diserahterimakan",
-                Pesan = "Kurir telah berhasil menyerahkan paket kepada penerima di alamat tujuan utama.",
-                Pop = 1.0f,
-                Archive = false,
-                Inbox = true,
-                Activity = true,
-                CreatedAt = "10:45",
-                ExpiredAt = "2026-12-31",
-                Data = NotificationKurir.DataInfo(
-                    Metadata = mapOf("resi" to "JP123456789"),
-                    Special = "express"
-                )
-            ),
+        Component = listOf({
+            HistoricalArchivePage(
+                listOf(
+                    NotificationKurir(
+                        IdKurir = 1,
+                        Pengirim = "Logistik Hub Jakarta",
+                        Judul = "Paket Telah Diserahterimakan",
+                        Pesan = "Kurir telah berhasil menyerahkan paket kepada penerima di alamat tujuan utama.",
+                        Pop = 1.0f,
+                        Archive = true,
+                        Inbox = true,
+                        Activity = true,
+                        CreatedAt = "10:45",
+                        ExpiredAt = "2026-12-31",
+                        Data = NotificationKurir.DataInfo(mapOf("resi" to "JP123456789"), "express")
+                    ),
             NotificationKurir(
                 IdKurir = 2,
                 Pengirim = "Sistem Otomasi",
                 Judul = "Pembaruan Rute Perjalanan",
                 Pesan = "Terdapat pengalihan rute karena adanya perbaikan jalan di sekitar wilayah Jakarta Selatan.",
                 Pop = 0.5f,
-                Archive = false,
+                Archive = true,
                 Inbox = true,
                 Activity = true,
                 CreatedAt = "Kemarin",
                 ExpiredAt = "2026-12-31",
-                Data = NotificationKurir.DataInfo(
-                    Metadata = mapOf("zone" to "B"),
-                    Special = false
-                )
+                Data = NotificationKurir.DataInfo(mapOf("zone" to "B"), false)
             ),
-        ))})
+            NotificationKurir(
+                IdKurir = 3,
+                Pengirim = "Admin Operasional",
+                Judul = "Jadwal Shift Baru",
+                Pesan = "Mohon periksa kembali jadwal shift pengiriman Anda untuk minggu depan di menu profil.",
+                Pop = 1.0f,
+                Archive = true,
+                Inbox = true,
+                Activity = false,
+                CreatedAt = "2 Hari lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf(), "")
+            ),
+            NotificationKurir(
+                IdKurir = 4,
+                Pengirim = "Pusat Bantuan",
+                Judul = "Verifikasi Data Berhasil",
+                Pesan = "Akun kurir Anda telah terverifikasi penuh oleh sistem pusat.",
+                Pop = 0.8f,
+                Archive = true,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "3 Hari lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf(), "")
+            ),
+            NotificationKurir(
+                IdKurir = 5,
+                Pengirim = "Keuangan Kurir",
+                Judul = "Insentif Bulanan Cair",
+                Pesan = "Bonus performa bulanan Anda telah ditransfer ke rekening terdaftar. Silakan cek saldo.",
+                Pop = 1.0f,
+                Archive = true,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "4 Hari lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf("amount" to "500000"), "bonus")
+            ),
+            NotificationKurir(
+                IdKurir = 6,
+                Pengirim = "Safety Riding Center",
+                Judul = "Imbauan Keselamatan Berkendara",
+                Pesan = "M Mengingat cuaca yang sering hujan, mohon selalu gunakan perlengkapan berkendara yang aman.",
+                Pop = 0.2f,
+                Archive = true,
+                Inbox = true,
+                Activity = false,
+                CreatedAt = "5 Hari lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf(), "")
+            ),
+            NotificationKurir(
+                IdKurir = 7,
+                Pengirim = "Manajemen Hub",
+                Judul = "Maintenance Aplikasi",
+                Pesan = "Akan dilakukan pemeliharaan server pada pukul 00:00 - 03:00 WIB. Harap maklum.",
+                Pop = 0.5f,
+                Archive = true,
+                Inbox = true,
+                Activity = false,
+                CreatedAt = "6 Hari lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf(), "")
+            ),
+            NotificationKurir(
+                IdKurir = 8,
+                Pengirim = "Customer Care",
+                Judul = "Ulasan Positif Pelanggan",
+                Pesan = "Anda mendapatkan rating bintang 5 dari pelanggan atas pelayanan pengiriman yang cepat.",
+                Pop = 0.9f,
+                Archive = true,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "1 Minggu lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf("rating" to "5"), "feedback")
+            ),
+            NotificationKurir(
+                IdKurir = 9,
+                Pengirim = "Logistik Area Timur",
+                Judul = "Penambahan Area Cakupan",
+                Pesan = "Kini area pengiriman Anda diperluas hingga mencakup kawasan industri baru.",
+                Pop = 0.7f,
+                Archive = true,
+                Inbox = true,
+                Activity = true,
+                CreatedAt = "1 Minggu lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf("area" to "Timur"), "")
+            ),
+            NotificationKurir(
+                IdKurir = 10,
+                Pengirim = "Tim HRD Kurir",
+                Judul = "Survei Kepuasan Kerja",
+                Pesan = "Partisipasi Anda sangat berarti untuk kemajuan bersama. Silakan isi tautan survei berikut.",
+                Pop = 0.4f,
+                Archive = true,
+                Inbox = true,
+                Activity = false,
+                CreatedAt = "2 Minggu lalu",
+                ExpiredAt = "2026-12-31",
+                Data = NotificationKurir.DataInfo(mapOf(), "")
+            )
+            )
+            )
+        })
     ),
     RoutesProps(
         name = "Bid",
@@ -344,6 +517,31 @@ val DetailsSectionRouting: List<RoutesProps> = listOf(
             CreatedAt = "2026-06-01T08:00:00Z",
             UpdatedAt = "2026-06-01T08:00:00Z"
         )) })
+    ),
+    RoutesProps(
+        name = "Notifikasi",
+        Path = "$DetailsSectionPrefix/Notifikasi",
+        Icon = null,
+        Component = listOf({
+            DetailsNotificationPage(
+                notification = NotificationKurir(
+                    IdKurir = 1,
+                    Pengirim = "Logistik Hub Jakarta",
+                    Judul = "Paket Telah Diserahterimakan",
+                    Pesan = "Kurir telah berhasil menyerahkan paket kepada penerima di alamat tujuan utama tanpa kendala berarti. Tanda tangan penerima telah diverifikasi oleh sistem.",
+                    Pop = 1.0f,
+                    Archive = true,
+                    Inbox = true,
+                    Activity = true,
+                    CreatedAt = "10:45 WIB",
+                    ExpiredAt = "2026-12-31",
+                    Data = NotificationKurir.DataInfo(
+                        Metadata = mapOf("resi" to "JP123456789", "kurir_id" to "K-992"),
+                        Special = "express"
+                    )
+                )
+            )
+        })
     ),
     RoutesProps(
         name = "Bid",
